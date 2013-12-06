@@ -57,7 +57,9 @@
             android:text="@string/customLabel" />
     </RadioGroup>
 
+    <!-- Put textNoSuggestions since we don't know what values it needs yet -->
     <EditText
+        android:inputType="textNoSuggestions"  
         android:id="@+id/editText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
