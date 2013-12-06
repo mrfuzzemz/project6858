@@ -15,7 +15,7 @@
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
         android:layout_marginTop="16dp"
-        android:text="Location"
+        android:text="@string/locationLabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -42,19 +42,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Real" />
+            android:text="@string/realLabel" />
 
         <RadioButton
             android:id="@+id/radio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bogus" />
+            android:text="@string/bogusLabel" />
 
         <RadioButton
             android:id="@+id/radio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Custom" />
+            android:text="@string/customLabel" />
     </RadioGroup>
 
     <EditText
