@@ -47,6 +47,8 @@ public final class R {
         public static final int locationLabel=0x7f050003;
         public static final int realLabel=0x7f050006;
         public static final int resourceLabel=0x7f050002;
+        public static final int sandbox_loc_desc=0x7f050007;
+        public static final int sandbox_loc_label=0x7f050008;
     }
     public static final class style {
         /** 
