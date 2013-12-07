@@ -15,6 +15,10 @@
         android:label="@string/sandbox_loc_label">
     </permission>
 
+    <uses-permission    
+        android:name="com.privacy.sandbox.SANDBOX_LOCATION">
+    </uses-permission>
+    
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -29,6 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <receiver android:name="MyReceiver" >
+            <intent-filter>
+                <action android:name="com.privacy.sandbox.REQUEST_LOCATION" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -2,6 +2,7 @@ package com.privacy.sandboxedapp;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 
 public class SandboxedMainActivity extends Activity {
@@ -10,6 +11,13 @@ public class SandboxedMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sandboxed_main);
+		
+		Intent i = new Intent();
+		i.putExtra("data", "a value");
+		i.setAction("com.privacy.sandbox.REQUEST_LOCATION");
+
+		sendBroadcast(i);
+
 	}
 
 	@Override
