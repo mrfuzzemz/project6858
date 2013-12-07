@@ -16,7 +16,7 @@ public class SandboxedMainActivity extends Activity {
 		i.putExtra("data", "a value");
 		i.setAction("com.privacy.sandbox.REQUEST_LOCATION");
 
-		sendBroadcast(i);
+		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
 
 	}
 
