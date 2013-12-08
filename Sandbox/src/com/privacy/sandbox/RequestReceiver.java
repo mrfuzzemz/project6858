@@ -12,12 +12,16 @@ public class RequestReceiver extends BroadcastReceiver {
 		String request = arg1.getExtras().getString("request");
 		String data = "";
 		
-		Toast.makeText(arg0, "Sandbox received request for " + request, Toast.LENGTH_LONG).show();
+		String from = arg1.getPackage();
+		
+		Toast.makeText(arg0, "Sandbox received request for " + request + " from " + from, Toast.LENGTH_LONG).show();
 		
 		if (request.equals("location")){
 			data = "location value!";
-		} else{
-			data = "something else!";
+		} else if (request.equals("profile")){
+			data = "profile value!";
+		} else if (request.equals("imei")){
+			data = "imei value!";
 		}
 		
 		Intent i = new Intent();

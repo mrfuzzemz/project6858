@@ -3,7 +3,6 @@
 	<name>SandboxedApp</name>
 	<comment></comment>
 	<projects>
-		<project>Sandbox</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
