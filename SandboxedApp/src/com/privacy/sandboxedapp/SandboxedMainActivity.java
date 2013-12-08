@@ -13,8 +13,8 @@ public class SandboxedMainActivity extends Activity {
 		setContentView(R.layout.activity_sandboxed_main);
 		
 		Intent i = new Intent();
-		i.putExtra("data", "a value");
-		i.setAction("com.privacy.sandbox.REQUEST_LOCATION");
+		i.putExtra("request", "location");
+		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
 		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
 

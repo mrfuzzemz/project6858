@@ -34,9 +34,9 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="MyReceiver" >
+        <receiver android:name="RequestReceiver" >
             <intent-filter>
-                <action android:name="com.privacy.sandbox.REQUEST_LOCATION" />
+                <action android:name="com.privacy.sandbox.REQUEST_VALUE" />
             </intent-filter>
         </receiver>
     </application>
