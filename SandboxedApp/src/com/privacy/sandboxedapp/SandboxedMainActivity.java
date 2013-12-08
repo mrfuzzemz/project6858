@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
 
 public class SandboxedMainActivity extends Activity {
 
@@ -27,6 +29,25 @@ public class SandboxedMainActivity extends Activity {
 		return true;
 	}
 
-	// Let us see if this changes
+	public void requestLocation(View view) {
+		Intent i = new Intent();
+		i.putExtra("data", "a value");
+		i.setAction("com.privacy.sandbox.REQUEST_LOCATION");
+
+		sendBroadcast(i);
+		
+//		Button requestLocationButton =(Button)view.findViewById(R.id.buttonLoc);
+//		requestLocationButton.setText("Request sent");
+		
+//		try {
+//		Thread.sleep(5000);
+//		}
+//		catch (InterruptedException e){
+//			e.printStackTrace();
+//		}
+//		
+//		requestLocationButton.setText("Request Location");
+		
+	}
 	
 }
