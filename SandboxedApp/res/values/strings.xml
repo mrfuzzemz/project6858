@@ -3,6 +3,7 @@
 
     <string name="app_name">SandboxedApp</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    <string name="title">Make request</string>
+    <string name="requestLocationButton">Request Location</string>
+   
 </resources>
