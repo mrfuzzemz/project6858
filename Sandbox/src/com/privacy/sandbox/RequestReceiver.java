@@ -9,7 +9,7 @@ public class RequestReceiver extends BroadcastReceiver {
 
 	 @Override
 	 public void onReceive(Context arg0, Intent arg1) {
-		String request = arg1.getExtras().getString("name");
+		String request = arg1.getExtras().getString("request");
 		String data = "";
 		
 		String from = arg1.getPackage();
@@ -18,8 +18,10 @@ public class RequestReceiver extends BroadcastReceiver {
 		
 		if (request.equals("location")){
 			data = "location value!";
-		} else{
-			data = "something else!";
+		} else if (request.equals("profile")){
+			data = "profile value!";
+		} else if (request.equals("imei")){
+			data = "imei value!";
 		}
 		
 		Intent i = new Intent();
