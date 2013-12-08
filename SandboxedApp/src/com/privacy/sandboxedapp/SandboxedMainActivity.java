@@ -31,10 +31,10 @@ public class SandboxedMainActivity extends Activity {
 
 	public void requestLocation(View view) {
 		Intent i = new Intent();
-		i.putExtra("data", "a value");
-		i.setAction("com.privacy.sandbox.REQUEST_LOCATION");
+		i.putExtra("request", "location");
+		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
-		sendBroadcast(i);
+		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
 		
 //		Button requestLocationButton =(Button)view.findViewById(R.id.buttonLoc);
 //		requestLocationButton.setText("Request sent");
