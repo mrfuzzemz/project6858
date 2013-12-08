@@ -50,4 +50,22 @@ public class SandboxedMainActivity extends Activity {
 		
 	}
 	
+	public void requestProfile(View view) {
+		Intent i = new Intent();
+		i.putExtra("request", "profile");
+		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
+
+		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
+		
+	}
+	
+	public void requestIMEI(View view) {
+		Intent i = new Intent();
+		i.putExtra("request", "imei");
+		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
+
+		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
+		
+	}
+	
 }
