@@ -24,6 +24,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <receiver android:name="DataReceiver" >
+            <intent-filter>
+                <action android:name="com.privacy.sandbox.SEND_VALUE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
