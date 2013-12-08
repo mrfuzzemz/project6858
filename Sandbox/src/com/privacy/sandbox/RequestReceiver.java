@@ -9,10 +9,12 @@ public class RequestReceiver extends BroadcastReceiver {
 
 	 @Override
 	 public void onReceive(Context arg0, Intent arg1) {
-		String request = arg1.getExtras().getString("request");
+		String request = arg1.getExtras().getString("name");
 		String data = "";
 		
-		Toast.makeText(arg0, "Sandbox received request for " + request, Toast.LENGTH_LONG).show();
+		String from = arg1.getPackage();
+		
+		Toast.makeText(arg0, "Sandbox received request for " + request + " from " + from, Toast.LENGTH_LONG).show();
 		
 		if (request.equals("location")){
 			data = "location value!";

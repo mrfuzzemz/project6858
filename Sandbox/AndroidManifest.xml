@@ -34,7 +34,8 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="RequestReceiver" >
+        <receiver android:name="RequestReceiver" 
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.privacy.sandbox.REQUEST_VALUE" />
             </intent-filter>
