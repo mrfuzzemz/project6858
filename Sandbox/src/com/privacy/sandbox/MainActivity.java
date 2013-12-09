@@ -12,34 +12,30 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
+	public static String userName = "";
+	public static String phoneIMEI = "";
+	public static String carrierName = "";
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
 		TextView requestLabel =(TextView)findViewById(R.id.textView1);
-		// requestLabel.setText("Profile");
 		
 		// Get the current carrier
 		TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-		String carrierName = telephonyManager.getNetworkOperatorName();
+		carrierName = telephonyManager.getNetworkOperatorName();
         
-		// requestLabel.setText(carrierName);
-        
-		// Get IMEI
-		String phoneIMEI = telephonyManager.getDeviceId();
-		// requestLabel.setText(phoneIMEI);
+		// Initialize IMEI
+		phoneIMEI = telephonyManager.getDeviceId();
 		
-		// Get the phone owner's name (be sure to set this up on the phone!!!)
+		// Initialize userName
 		Cursor c = this.getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
 		c.moveToFirst();
-		String userName = c.getString(c.getColumnIndex("DISPLAY_NAME"));
+		userName = c.getString(c.getColumnIndex("DISPLAY_NAME"));
 		c.close();
-		requestLabel.setText(userName);
-
-
-		
-		
     }
 
 
@@ -51,5 +47,21 @@ public class MainActivity extends Activity {
     }
  
     
+    // Functions to get the good stuff
+    
+	// Get the phone owner's name (be sure to set this up on the phone!!!)
+    public static String getUserName(){
+		return userName;
+    }
+    
+	// Get the phone IMEI
+    public static String getPhoneIMEI(){
+		return phoneIMEI;
+    }
+    
+    // Get the phone wireless carrier name
+    public static String getCarrierName(){
+    	return carrierName;
+    }
     
 }
