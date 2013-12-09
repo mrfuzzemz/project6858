@@ -33,7 +33,6 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	int counter = 0;
 	public void saveToDB(View view) {
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
 		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
@@ -49,20 +48,10 @@ public class MainActivity extends Activity {
 			permissionSetting = "Custom: " + mEdit.getText().toString();
 		}
 
-		Permission perm = null;
-		if (counter == 0){
-			perm = datasource.createPermission("SandboxedApp", "location", permissionSetting);
-			Toast.makeText(this, "added " + perm.toString(), Toast.LENGTH_SHORT).show();
-
-		} else {
-			datasource.editPermission("SandboxedApp", "location", permissionSetting);
-			Toast.makeText(this, "updated", Toast.LENGTH_SHORT).show();
-
-		}
-
+		datasource.createOrUpdatePermission("SandboxedApp", "location", permissionSetting);
+		
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 		
-		counter++;
 	}
 	
 	public static Permission getPermission(String appName, String permName){

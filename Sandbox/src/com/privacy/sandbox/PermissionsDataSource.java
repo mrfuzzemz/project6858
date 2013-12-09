@@ -55,7 +55,27 @@ public class PermissionsDataSource {
 		
 		database.update(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, values, PermissionsOpenHelper.APP_NAME 
 				+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where);
-
+	}
+	
+	public Permission createOrUpdatePermission(String appName, String permName, String permValue){
+		ContentValues values = new ContentValues();
+		values.put(PermissionsOpenHelper.APP_NAME, appName);
+		values.put(PermissionsOpenHelper.PERM_NAME, permName);
+		values.put(PermissionsOpenHelper.PERM_VALUE, permValue);
+		
+		String[] where = {appName, permName};
+		Cursor c = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, allColumns, PermissionsOpenHelper.APP_NAME 
+				+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where, null, null, null);
+		
+		if (c.moveToFirst()){
+			database.update(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, values, PermissionsOpenHelper.APP_NAME 
+					+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where);
+		} else {
+			database.insert(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, null,
+					values);
+		}
+		
+		return getPermission(appName, permName);
 	}
 	
 	public Permission getPermission(String appName, String permName) {
