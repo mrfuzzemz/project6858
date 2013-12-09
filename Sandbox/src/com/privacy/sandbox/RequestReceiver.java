@@ -1,5 +1,7 @@
 package com.privacy.sandbox;
 
+import java.util.Random;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +24,37 @@ public class RequestReceiver extends BroadcastReceiver {
 			data = "no perm set";
 		}
 
+		if (perm.toString().contains("Real")){
+			//grab real value and send that along
+			if (request.equals("location")){
+				// grab location
+				data = "Cambridge, MA";
+			} else if (request.equals("profile")){
+				// grab profile
+				data = MainActivity.getUserName();
+			} else if (request.equals("imei")){
+				// grab imei
+				data = MainActivity.getPhoneIMEI();
+			} else if (request.equals("carrier")){
+				// grab carrier
+				data = MainActivity.getCarrierName();
+			}
+		}
+		else if (perm.toString().contains("Bogus")){
+			//send bogus data along
+			Random rand = new Random();
+			data = String.valueOf(rand.nextInt());	
+		}
+		else if (perm.toString().contains("Custom:")){
+			// Send custom value (Cutoff "Custom: ")
+			int customOffset = perm.toString().indexOf("Custom: ");
+			data = data.substring(customOffset + 8,data.length());
+			// data = data;
+		}
+		
+		
+		
+		
 		Intent i = new Intent();
 		i.putExtra("data", data);
 		i.setAction("com.privacy.sandbox.SEND_VALUE");
