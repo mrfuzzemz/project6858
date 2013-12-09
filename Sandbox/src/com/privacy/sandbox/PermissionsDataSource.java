@@ -58,6 +58,20 @@ public class PermissionsDataSource {
 
 	}
 	
+	public Permission getPermission(String appName, String permName) {
+		String[] where = {appName, permName};
+		
+		Cursor c = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, allColumns, PermissionsOpenHelper.APP_NAME 
+				+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where, null, null, null);
+		
+		Permission result = null;
+		if (c.moveToFirst()){
+			result = cursorToPermission(c);
+		}
+		c.close();
+		return result;
+	}
+	
 	public void deletePermission(Permission Permission) {
 		long id = Permission.getId();
 		System.out.println("Permission deleted with id: " + id);
@@ -90,4 +104,6 @@ public class PermissionsDataSource {
 		Permission.setPermValue(cursor.getString(3));
 		return Permission;
 	}
+
+	
 }

@@ -51,11 +51,11 @@ public class MainActivity extends Activity {
 
 		Permission perm = null;
 		if (counter == 0){
-			perm = datasource.createPermission("App A", "Location", permissionSetting);
+			perm = datasource.createPermission("SandboxedApp", "location", permissionSetting);
 			Toast.makeText(this, "added " + perm.toString(), Toast.LENGTH_SHORT).show();
 
 		} else {
-			datasource.editPermission("App A", "Location", permissionSetting);
+			datasource.editPermission("SandboxedApp", "location", permissionSetting);
 			Toast.makeText(this, "updated", Toast.LENGTH_SHORT).show();
 
 		}
@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 		counter++;
 	}
 	
-	public static String getPermissions(){
-		return datasource.getAllPermissions().toString();
+	public static Permission getPermission(String appName, String permName){
+		return datasource.getPermission(appName, permName);
 	}
 }
