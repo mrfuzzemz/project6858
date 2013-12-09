@@ -11,6 +11,7 @@
     
     <string name="sandbox_loc_desc">can get location info served from sandbox app"</string>
     <string name="sandbox_loc_label">get location from sandbox"</string>
+ 
     
     <string name="save">Save</string>
 </resources>

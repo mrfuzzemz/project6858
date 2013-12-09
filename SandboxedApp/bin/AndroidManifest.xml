@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="DataReceiver" >
+        <receiver android:name="DataReceiver">
             <intent-filter>
                 <action android:name="com.privacy.sandbox.SEND_VALUE" />
             </intent-filter>
