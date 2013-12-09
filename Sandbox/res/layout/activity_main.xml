@@ -9,17 +9,6 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="22dp"
-        android:text="@string/resourceLabel"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +18,16 @@
         android:text="@string/locationLabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="22dp"
+        android:text="@string/resourceLabel"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RadioGroup
         android:id="@+id/radioGroup1"
@@ -68,5 +66,15 @@
         android:layout_alignBottom="@+id/radioGroup1"
         android:layout_toRightOf="@+id/textView1"
         android:ems="10" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup1"
+        android:layout_marginTop="44dp"
+        android:layout_toLeftOf="@+id/editText1"
+        android:text="@string/save" 
+        android:onClick="saveToDB"/>
 
 </RelativeLayout>

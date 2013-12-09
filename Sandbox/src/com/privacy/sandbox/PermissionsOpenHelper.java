@@ -8,17 +8,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class PermissionsOpenHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 2;
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_PROFILE = "read_profile";
+    public static final String ID = "_id";
+    public static final String APP_NAME = "appName";
+    public static final String PERM_NAME = "permName";
+    public static final String PERM_VALUE = "permValue";
+
     private static final String DATABASE_NAME = "permissions.db";
     public static final String PERMISSIONS_TABLE_NAME = "permissions";
 
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table "
-        + PERMISSIONS_TABLE_NAME + "(" + COLUMN_ID
-        + " integer primary key autoincrement, " + COLUMN_NAME 
-        + " text not null, " + COLUMN_PROFILE + " text not null);";
+        + PERMISSIONS_TABLE_NAME + "(" + ID
+        + " integer primary key autoincrement, " + APP_NAME 
+        + " text not null, " + PERM_NAME + " text not null, " 
+        + PERM_VALUE + " text not null);";
 
     public PermissionsOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
