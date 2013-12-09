@@ -40,8 +40,11 @@ public class MainActivity extends Activity {
 		
 		// Initialize userName
 		Cursor c = this.getContentResolver().query(ContactsContract.Profile.CONTENT_URI, null, null, null, null);
-		c.moveToFirst();
-		userName = c.getString(c.getColumnIndex("DISPLAY_NAME"));
+		if (c.moveToFirst()){
+			userName = c.getString(c.getColumnIndex("DISPLAY_NAME"));
+		} else{
+			userName = "";
+		}
 		c.close();
     
 		datasource = new PermissionsDataSource(this);
