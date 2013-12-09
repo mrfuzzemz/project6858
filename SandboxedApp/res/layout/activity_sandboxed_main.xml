@@ -44,5 +44,15 @@
  	    android:layout_marginTop="21dp"
  	    android:onClick="requestIMEI"
  	    android:text="@string/requestIMEIButton" />
+  	
+  	<Button
+ 	    android:id="@+id/buttonCarrier"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_below="@+id/buttonIMEI"
+ 	    android:layout_centerHorizontal="true"
+ 	    android:layout_marginTop="21dp"
+ 	    android:onClick="requestCarrier"
+ 	    android:text="@string/requestCarrierButton" />  	
     
 </RelativeLayout>

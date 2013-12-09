@@ -7,5 +7,6 @@
     <string name="requestLocationButton">Request Location</string>
     <string name="requestProfileButton">Request Profile</string>
     <string name="requestIMEIButton">Request IMEI</string>
-       
+    <string name="requestCarrierButton">Request Carrier</string>
+    
 </resources>

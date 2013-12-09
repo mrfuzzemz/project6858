@@ -57,5 +57,17 @@ public class SandboxedMainActivity extends Activity {
 		sendBroadcast(i);
 		
 	}
+
+	public void requestCarrier(View view) {
+		Intent i = new Intent();
+		i.putExtra("request", "carrier");
+		i.putExtra("name", "SandboxedApp");
+		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
+
+		sendBroadcast(i);
+		
+	}
+	
 	
 }
+
