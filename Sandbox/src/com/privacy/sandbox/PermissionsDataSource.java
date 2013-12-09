@@ -14,8 +14,8 @@ public class PermissionsDataSource {
 	// Database fields
 	private SQLiteDatabase database;
 	private PermissionsOpenHelper dbHelper;
-	private String[] allColumns = { PermissionsOpenHelper.COLUMN_ID,
-			PermissionsOpenHelper.COLUMN_NAME, PermissionsOpenHelper.COLUMN_PROFILE };
+	private String[] allColumns = { PermissionsOpenHelper.ID,
+			PermissionsOpenHelper.APP_NAME, PermissionsOpenHelper.PERM_NAME, PermissionsOpenHelper.PERM_VALUE};
 
 	public PermissionsDataSource(Context context) {
 		dbHelper = new PermissionsOpenHelper(context);
@@ -29,14 +29,15 @@ public class PermissionsDataSource {
 		dbHelper.close();
 	}
 
-	public Permission createPermission(String permissionName, String permissionProfileValue) {
+	public Permission createPermission(String appName, String permName, String permValue) {
 		ContentValues values = new ContentValues();
-		values.put(PermissionsOpenHelper.COLUMN_NAME, permissionName);
-		values.put(PermissionsOpenHelper.COLUMN_PROFILE, permissionProfileValue);
+		values.put(PermissionsOpenHelper.APP_NAME, appName);
+		values.put(PermissionsOpenHelper.PERM_NAME, permName);
+		values.put(PermissionsOpenHelper.PERM_VALUE, permValue);
 		long insertId = database.insert(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, null,
 				values);
 		Cursor cursor = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME,
-				allColumns, PermissionsOpenHelper.COLUMN_ID + " = " + insertId, null,
+				allColumns, PermissionsOpenHelper.ID + " = " + insertId, null,
 				null, null, null);
 		cursor.moveToFirst();
 		Permission newPermission = cursorToPermission(cursor);
@@ -47,7 +48,7 @@ public class PermissionsDataSource {
 	public void deletePermission(Permission Permission) {
 		long id = Permission.getId();
 		System.out.println("Permission deleted with id: " + id);
-		database.delete(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, PermissionsOpenHelper.COLUMN_ID
+		database.delete(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, PermissionsOpenHelper.ID
 				+ " = " + id, null);
 	}
 
@@ -71,8 +72,9 @@ public class PermissionsDataSource {
 	private Permission cursorToPermission(Cursor cursor) {
 		Permission Permission = new Permission();
 		Permission.setId(cursor.getLong(0));
-		Permission.setName(cursor.getString(1));
-		Permission.setRead_profile(cursor.getString(2));
+		Permission.setAppName(cursor.getString(1));
+		Permission.setPermName(cursor.getString(2));
+		Permission.setPermValue(cursor.getString(3));
 		return Permission;
 	}
 }

@@ -2,8 +2,9 @@ package com.privacy.sandbox;
 
 public class Permission {
 	private long id;
-	private String name;
-	private String read_profile;
+	private String appName;
+	private String permName;
+	private String permValue;
 
 	public long getId() {
 		return id;
@@ -12,27 +13,35 @@ public class Permission {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public String getName() {
-		return name;
+	
+	public String getAppName() {
+		return appName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAppName(String appName) {
+		this.appName = appName;
 	}
 
-	public String getRead_profile() {
-		return read_profile;
+	public String getPermName() {
+		return permName;
 	}
 
-	public void setRead_profile(String read_profile) {
-		this.read_profile = read_profile;
+	public void setPermName(String permName) {
+		this.permName = permName;
+	}
+
+	public String getPermValue() {
+		return permValue;
+	}
+
+	public void setPermValue(String permValue) {
+		this.permValue = permValue;
 	}
 
 	// Will be used by the ArrayAdapter in the ListView
 	@Override
 	public String toString() {
-		return name + " read_profile: " + read_profile;
+		return "App: " + appName + ", permission " + permName + ", set to " + permValue;
 	}
 
 }

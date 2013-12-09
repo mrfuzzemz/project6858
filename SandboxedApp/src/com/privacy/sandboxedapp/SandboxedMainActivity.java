@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class SandboxedMainActivity extends Activity {
 
@@ -34,20 +35,7 @@ public class SandboxedMainActivity extends Activity {
 		i.putExtra("request", "location");
 		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
-		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
-		
-//		Button requestLocationButton =(Button)view.findViewById(R.id.buttonLoc);
-//		requestLocationButton.setText("Request sent");
-		
-//		try {
-//		Thread.sleep(5000);
-//		}
-//		catch (InterruptedException e){
-//			e.printStackTrace();
-//		}
-//		
-//		requestLocationButton.setText("Request Location");
-		
+		sendBroadcast(i);		
 	}
 	
 	public void requestProfile(View view) {
@@ -55,8 +43,7 @@ public class SandboxedMainActivity extends Activity {
 		i.putExtra("request", "profile");
 		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
-		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
-		
+		sendBroadcast(i);
 	}
 	
 	public void requestIMEI(View view) {
@@ -64,7 +51,7 @@ public class SandboxedMainActivity extends Activity {
 		i.putExtra("request", "imei");
 		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
-		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_LOCATION");
+		sendBroadcast(i);
 		
 	}
 	
