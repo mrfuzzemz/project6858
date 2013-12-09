@@ -1,22 +1,11 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="16dp"
-        android:text="@string/locationLabel"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+<RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
     <TextView
         android:id="@+id/textView1"
@@ -27,7 +16,21 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
         android:text="@string/resourceLabel"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />    
+    
+    
+    <!-- Location section -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="16dp"
+        android:text="@string/locationLabel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
 
     <RadioGroup
         android:id="@+id/radioGroup1"
@@ -72,9 +75,196 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroup1"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/editText1"
         android:text="@string/save" 
         android:onClick="saveToDB"/>
 
+    <!-- IMEI Section -->
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/button1"
+        android:layout_marginTop="16dp"
+        android:text="@string/IMEILabel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="14dp" >
+
+        <RadioButton
+            android:id="@+id/radio3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/realLabel" />
+
+        <RadioButton
+            android:id="@+id/radio4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bogusLabel" />
+
+        <RadioButton
+            android:id="@+id/radio5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customLabel" />
+    </RadioGroup>
+
+    <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+    <EditText
+        android:inputType="textNoSuggestions"  
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radioGroup2"
+        android:layout_toRightOf="@+id/textView1"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup2"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/editText1"
+        android:text="@string/save" 
+        android:onClick="saveIMEIToDB"/>    
+    
+    <!-- Profile Section -->
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/button2"
+        android:layout_marginTop="16dp"
+        android:text="@string/profileLabel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="14dp" >
+
+        <RadioButton
+            android:id="@+id/radio6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/realLabel" />
+
+        <RadioButton
+            android:id="@+id/radio7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bogusLabel" />
+
+        <RadioButton
+            android:id="@+id/radio8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customLabel" />
+    </RadioGroup>
+
+    <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+    <EditText
+        android:inputType="textNoSuggestions"  
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radioGroup3"
+        android:layout_toRightOf="@+id/textView1"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup3"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/editText1"
+        android:text="@string/save" 
+        android:onClick="saveProfileToDB"/>        
+    
+    
+    <!-- Carrier Section -->
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/button3"
+        android:layout_marginTop="16dp"
+        android:text="@string/carrierLabel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView5"
+        android:layout_marginTop="14dp" >
+
+        <RadioButton
+            android:id="@+id/radio9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/realLabel" />
+
+        <RadioButton
+            android:id="@+id/radio10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bogusLabel" />
+
+        <RadioButton
+            android:id="@+id/radio11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customLabel" />
+    </RadioGroup>
+
+    <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+    <EditText
+        android:inputType="textNoSuggestions"  
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/radioGroup4"
+        android:layout_toRightOf="@+id/textView1"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroup4"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/editText1"
+        android:text="@string/save" 
+        android:onClick="saveCarrierToDB"/>     
+    
+    
+    
 </RelativeLayout>
+</ScrollView>

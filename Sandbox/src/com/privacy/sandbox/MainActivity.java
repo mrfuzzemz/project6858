@@ -81,6 +81,80 @@ public class MainActivity extends Activity {
 		
 	}
 	
+	
+	public void saveIMEIToDB(View view) {
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup2);
+		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
+		EditText mEdit   = (EditText)findViewById(R.id.editText2);
+
+		String permissionSetting = "";
+
+		if (value.equals("Real")) {
+			permissionSetting = "Real";
+		} else if (value.equals("Bogus")){
+			permissionSetting = "Bogus";
+		} else {
+			permissionSetting = "Custom: " + mEdit.getText().toString();
+		}
+
+		datasource.createOrUpdatePermission("SandboxedApp", "imei", permissionSetting);
+		
+		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
+		
+	}
+	
+	public void saveProfileToDB(View view) {
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
+		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
+		EditText mEdit   = (EditText)findViewById(R.id.editText3);
+
+		String permissionSetting = "";
+
+		if (value.equals("Real")) {
+			permissionSetting = "Real";
+		} else if (value.equals("Bogus")){
+			permissionSetting = "Bogus";
+		} else {
+			permissionSetting = "Custom: " + mEdit.getText().toString();
+		}
+
+		datasource.createOrUpdatePermission("SandboxedApp", "profile", permissionSetting);
+		
+		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
+		
+	}	
+	
+	public void saveCarrierToDB(View view) {
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup4);
+		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
+		EditText mEdit   = (EditText)findViewById(R.id.editText4);
+
+		String permissionSetting = "";
+
+		if (value.equals("Real")) {
+			permissionSetting = "Real";
+		} else if (value.equals("Bogus")){
+			permissionSetting = "Bogus";
+		} else {
+			permissionSetting = "Custom: " + mEdit.getText().toString();
+		}
+
+		datasource.createOrUpdatePermission("SandboxedApp", "carrier", permissionSetting);
+		
+		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
+		
+	}		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public static Permission getPermission(String appName, String permName){
 		return datasource.getPermission(appName, permName);
 	}
