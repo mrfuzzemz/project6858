@@ -1,7 +1,6 @@
 package com.privacy.sandbox;
 
 import android.os.Bundle;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
@@ -13,7 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private PermissionsDataSource datasource;
+	private static PermissionsDataSource datasource;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,5 +63,9 @@ public class MainActivity extends Activity {
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 		
 		counter++;
+	}
+	
+	public static String getPermissions(){
+		return datasource.getAllPermissions().toString();
 	}
 }

@@ -26,6 +26,8 @@ public class RequestReceiver extends BroadcastReceiver {
 		i.setAction("com.privacy.sandbox.SEND_VALUE");
 
 		arg0.sendBroadcast(i);
+		
+		Toast.makeText(arg0, MainActivity.getPermissions(), Toast.LENGTH_SHORT).show();
 	 }
 
 }
