@@ -44,7 +44,20 @@ public class PermissionsDataSource {
 		cursor.close();
 		return newPermission;
 	}
+	
+	public void editPermission(String appName, String permName, String permValue){
+		ContentValues values = new ContentValues();
+		values.put(PermissionsOpenHelper.APP_NAME, appName);
+		values.put(PermissionsOpenHelper.PERM_NAME, permName);
+		values.put(PermissionsOpenHelper.PERM_VALUE, permValue);
+		
+		String[] where = {appName, permName};
+		
+		database.update(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, values, PermissionsOpenHelper.APP_NAME 
+				+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where);
 
+	}
+	
 	public void deletePermission(Permission Permission) {
 		long id = Permission.getId();
 		System.out.println("Permission deleted with id: " + id);
