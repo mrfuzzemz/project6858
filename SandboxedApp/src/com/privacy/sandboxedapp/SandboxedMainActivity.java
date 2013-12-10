@@ -68,6 +68,16 @@ public class SandboxedMainActivity extends Activity {
 		
 	}
 	
+	public void requestContacts(View view) {
+		Intent i = new Intent();
+		i.putExtra("request", "contacts");
+		i.putExtra("name", "SandboxedApp");
+		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
+
+		sendBroadcast(i);
+		
+	}
+	
 	
 }
 
