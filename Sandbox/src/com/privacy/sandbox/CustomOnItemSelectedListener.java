@@ -12,7 +12,7 @@ public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 			
 		// TODO Select the database chosen, current just Toasts current selection
 		Toast.makeText(parent.getContext(), 
-				"OnItemSelectedListener : " + parent.getItemAtPosition(pos).toString(),
+				"Current Sandboxed App : " + parent.getItemAtPosition(pos).toString(),
 				Toast.LENGTH_SHORT).show();
 	}
 
