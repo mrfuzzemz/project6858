@@ -46,9 +46,8 @@ public class RequestReceiver extends BroadcastReceiver {
 			data = String.valueOf(rand.nextInt());	
 		}
 		else if (perm.toString().contains("Custom:")){
-			// Send custom value (Cutoff "Custom: ")
-			int customOffset = perm.toString().indexOf("Custom: ");
-			data = data.substring(customOffset + 8,data.length());
+			// Send custom value (Cut off "Custom: ")
+			data = data.substring(MainActivity.CUSTOM_OFFSET);
 			// data = data;
 		}
 		

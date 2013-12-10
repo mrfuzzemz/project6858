@@ -1,5 +1,9 @@
 package com.privacy.sandbox;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import android.os.Bundle;
 
 import android.provider.ContactsContract;
@@ -19,18 +23,18 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 	private static PermissionsDataSource datasource;
 
-	public static String userName = "";
-	public static String phoneIMEI = "";
-	public static String carrierName = "";
+	private static String userName = "";
+	private static String phoneIMEI = "";
+	private static String carrierName = "";
 	
+	//for removing Custom label from custom permissions
+	public static final int CUSTOM_OFFSET = "Custom: ".length(); 
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-		TextView requestLabel =(TextView)findViewById(R.id.textView1);
-		
+        		
 		// Get the current carrier
 		TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 		carrierName = telephonyManager.getNetworkOperatorName();
@@ -49,7 +53,9 @@ public class MainActivity extends Activity {
     
 		datasource = new PermissionsDataSource(this);
 		datasource.open();
-
+		
+		checkCurrentSettings();
+		
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 	}
 
@@ -60,10 +66,68 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void saveToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup1);
+	public void checkCurrentSettings(){
+		List<Permission> perms = datasource.getAllPermissions("SandboxedApp");
+		Iterator<Permission> iter = perms.iterator();
+		
+		while(iter.hasNext()){
+			Permission p = iter.next();
+			String permissionName = p.getPermName();
+			String value = p.getPermValue();
+			
+			RadioGroup rg;
+			RadioButton selected;
+			
+			if (permissionName.equals("location")){
+				rg = (RadioGroup) findViewById(R.id.locationRadioGroup);
+				if (value.equals("Real")) {
+					selected = (RadioButton) findViewById(R.id.realLoc);
+				} else if (value.equals("Bogus")){
+					selected = (RadioButton) findViewById(R.id.bogusLoc);
+				} else { //custom
+					selected = (RadioButton) findViewById(R.id.customLoc);
+					((EditText)findViewById(R.id.locEditText)).setText(value.substring(CUSTOM_OFFSET));
+				}
+			} else if(permissionName.equals("imei")){
+				rg = (RadioGroup) findViewById(R.id.IMEIRadioGroup);
+				if (value.equals("Real")) {
+					selected = (RadioButton) findViewById(R.id.realIMEI);
+				} else if (value.equals("Bogus")){
+					selected = (RadioButton) findViewById(R.id.bogusIMEI);
+				} else { //custom
+					selected = (RadioButton) findViewById(R.id.customIMEI);
+					((EditText)findViewById(R.id.IMEIEditText)).setText(value.substring(CUSTOM_OFFSET));
+				}
+			} else if (permissionName.equals("profile")){
+				rg = (RadioGroup) findViewById(R.id.profileRadioGroup);
+				if (value.equals("Real")) {
+					selected = (RadioButton) findViewById(R.id.realProfile);
+				} else if (value.equals("Bogus")){
+					selected = (RadioButton) findViewById(R.id.bogusProfile);
+				} else { //custom
+					selected = (RadioButton) findViewById(R.id.customProfile);
+					((EditText)findViewById(R.id.profileEditText)).setText(value.substring(CUSTOM_OFFSET));
+				}
+			} else { //carrier
+				rg = (RadioGroup) findViewById(R.id.carrierRadioGroup);
+				if (value.equals("Real")) {
+					selected = (RadioButton) findViewById(R.id.realCarrier);
+				} else if (value.equals("Bogus")){
+					selected = (RadioButton) findViewById(R.id.bogusCarrier);
+				} else { //custom
+					selected = (RadioButton) findViewById(R.id.customCarrier);
+					((EditText)findViewById(R.id.locEditText)).setText(value.substring(CUSTOM_OFFSET));
+				}
+			}
+			rg.check(selected.getId());
+
+		}
+	}
+	
+	public void saveLocationToDB(View view) {
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.locationRadioGroup);
 		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.editText1);
+		EditText mEdit  = (EditText)findViewById(R.id.locEditText);
 
 		String permissionSetting = "";
 
@@ -83,9 +147,9 @@ public class MainActivity extends Activity {
 	
 	
 	public void saveIMEIToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup2);
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.IMEIRadioGroup);
 		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.editText2);
+		EditText mEdit   = (EditText)findViewById(R.id.IMEIEditText);
 
 		String permissionSetting = "";
 
@@ -104,9 +168,9 @@ public class MainActivity extends Activity {
 	}
 	
 	public void saveProfileToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup3);
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.profileRadioGroup);
 		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.editText3);
+		EditText mEdit   = (EditText)findViewById(R.id.profileEditText);
 
 		String permissionSetting = "";
 
@@ -125,9 +189,9 @@ public class MainActivity extends Activity {
 	}	
 	
 	public void saveCarrierToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup4);
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.carrierRadioGroup);
 		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.editText4);
+		EditText mEdit   = (EditText)findViewById(R.id.carrierEditText);
 
 		String permissionSetting = "";
 
@@ -144,16 +208,6 @@ public class MainActivity extends Activity {
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 		
 	}		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public static Permission getPermission(String appName, String permName){
 		return datasource.getPermission(appName, permName);

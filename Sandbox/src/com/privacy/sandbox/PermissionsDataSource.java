@@ -115,6 +115,24 @@ public class PermissionsDataSource {
 		cursor.close();
 		return Permissions;
 	}
+	
+	public List<Permission> getAllPermissions(String appName) {
+		String[] where = {appName};
+		List<Permission> Permissions = new ArrayList<Permission>();
+
+		Cursor cursor = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME,
+				allColumns, PermissionsOpenHelper.APP_NAME + " = ?", where, null, null, null);
+
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Permission Permission = cursorToPermission(cursor);
+			Permissions.add(Permission);
+			cursor.moveToNext();
+		}
+		// make sure to close the cursor
+		cursor.close();
+		return Permissions;
+	}
 
 	private Permission cursorToPermission(Cursor cursor) {
 		Permission Permission = new Permission();
