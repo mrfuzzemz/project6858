@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
 		datasource = new PermissionsDataSource(this);
 		datasource.open();
 		
-		checkCurrentSettings();
+		checkCurrentSettings("SandboxedApp");
 		
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 	}
@@ -66,8 +66,8 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	public void checkCurrentSettings(){
-		List<Permission> perms = datasource.getAllPermissions("SandboxedApp");
+	public void checkCurrentSettings(String appName){
+		List<Permission> perms = datasource.getAllPermissions(appName);
 		Iterator<Permission> iter = perms.iterator();
 		
 		while(iter.hasNext()){
@@ -124,97 +124,26 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	public void saveToDB(View view){
-		saveLocationToDB(view);
-		saveIMEIToDB(view);
-		saveProfileToDB(view);
-		saveCarrierToDB(view);
+	public void saveAllToDB(View view){
+		String appName = "SandboxedApp";
+		saveToDB(view, appName, "location", R.id.locationRadioGroup, R.id.locEditText);
+		saveToDB(view, appName, "imei", R.id.IMEIRadioGroup, R.id.IMEIEditText);
+		saveToDB(view, appName, "profile", R.id.profileRadioGroup, R.id.profileEditText);
+		saveToDB(view, appName, "carrier", R.id.carrierRadioGroup, R.id.carrierEditText);
+		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 	}
 	
-	public void saveLocationToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.locationRadioGroup);
-		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit  = (EditText)findViewById(R.id.locEditText);
+	public void saveToDB(View view, String appName, String permName, int rgID, int editTextID) {
+		RadioGroup radioGroup = (RadioGroup) findViewById(rgID);
+		String permissionSetting = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
+		EditText mEdit  = (EditText)findViewById(editTextID);
 
-		String permissionSetting = "";
-
-		if (value.equals("Real")) {
-			permissionSetting = "Real";
-		} else if (value.equals("Bogus")){
-			permissionSetting = "Bogus";
-		} else {
+		if (permissionSetting.equals("Custom")) {
 			permissionSetting = "Custom: " + mEdit.getText().toString();
 		}
 
-		datasource.createOrUpdatePermission("SandboxedApp", "location", permissionSetting);
-		
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
-		
-	}
-	
-	
-	public void saveIMEIToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.IMEIRadioGroup);
-		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.IMEIEditText);
-
-		String permissionSetting = "";
-
-		if (value.equals("Real")) {
-			permissionSetting = "Real";
-		} else if (value.equals("Bogus")){
-			permissionSetting = "Bogus";
-		} else {
-			permissionSetting = "Custom: " + mEdit.getText().toString();
-		}
-
-		datasource.createOrUpdatePermission("SandboxedApp", "imei", permissionSetting);
-		
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
-		
-	}
-	
-	public void saveProfileToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.profileRadioGroup);
-		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.profileEditText);
-
-		String permissionSetting = "";
-
-		if (value.equals("Real")) {
-			permissionSetting = "Real";
-		} else if (value.equals("Bogus")){
-			permissionSetting = "Bogus";
-		} else {
-			permissionSetting = "Custom: " + mEdit.getText().toString();
-		}
-
-		datasource.createOrUpdatePermission("SandboxedApp", "profile", permissionSetting);
-		
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
-		
+		datasource.createOrUpdatePermission(appName, permName, permissionSetting);
 	}	
-	
-	public void saveCarrierToDB(View view) {
-		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.carrierRadioGroup);
-		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
-		EditText mEdit   = (EditText)findViewById(R.id.carrierEditText);
-
-		String permissionSetting = "";
-
-		if (value.equals("Real")) {
-			permissionSetting = "Real";
-		} else if (value.equals("Bogus")){
-			permissionSetting = "Bogus";
-		} else {
-			permissionSetting = "Custom: " + mEdit.getText().toString();
-		}
-
-		datasource.createOrUpdatePermission("SandboxedApp", "carrier", permissionSetting);
-		
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
-		
-	}		
 	
 	public static Permission getPermission(String appName, String permName){
 		return datasource.getPermission(appName, permName);

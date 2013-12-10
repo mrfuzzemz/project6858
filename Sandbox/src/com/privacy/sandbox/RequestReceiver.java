@@ -19,12 +19,12 @@ public class RequestReceiver extends BroadcastReceiver {
 		Permission perm = MainActivity.getPermission(appName, request);
 	
 		if (perm != null){
-			data = perm.toString();
+			data = perm.getPermValue();
 		} else {
 			data = "no perm set";
 		}
 
-		if (perm.toString().contains("Real")){
+		if (data.equals("Real")){
 			//grab real value and send that along
 			if (request.equals("location")){
 				// grab location
@@ -40,12 +40,12 @@ public class RequestReceiver extends BroadcastReceiver {
 				data = MainActivity.getCarrierName();
 			}
 		}
-		else if (perm.toString().contains("Bogus")){
+		else if (data.equals("Bogus")){
 			//send bogus data along
 			Random rand = new Random();
 			data = String.valueOf(rand.nextInt());	
 		}
-		else if (perm.toString().contains("Custom:")){
+		else if (data.contains("Custom:")){
 			// Send custom value (Cut off "Custom: ")
 			data = data.substring(MainActivity.CUSTOM_OFFSET);
 			// data = data;

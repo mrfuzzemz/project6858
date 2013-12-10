@@ -231,7 +231,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="10dip"
         android:text="@string/save" 
-        android:onClick="saveToDB"/>     
+        android:onClick="saveAllToDB"/>     
     
     
     
