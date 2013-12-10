@@ -24,15 +24,34 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080008;
-        public static final int button1=0x7f080007;
-        public static final int editText1=0x7f080006;
-        public static final int radio0=0x7f080003;
-        public static final int radio1=0x7f080004;
-        public static final int radio2=0x7f080005;
-        public static final int radioGroup1=0x7f080002;
+        public static final int IMEIEditText=0x7f08000d;
+        public static final int IMEIRadioGroup=0x7f080009;
+        public static final int ScrollView01=0x7f080000;
+        public static final int action_settings=0x7f08001b;
+        public static final int bogusCarrier=0x7f080017;
+        public static final int bogusIMEI=0x7f08000b;
+        public static final int bogusLoc=0x7f080005;
+        public static final int bogusProfile=0x7f080011;
+        public static final int carrierEditText=0x7f080019;
+        public static final int carrierRadioGroup=0x7f080015;
+        public static final int customCarrier=0x7f080018;
+        public static final int customIMEI=0x7f08000c;
+        public static final int customLoc=0x7f080006;
+        public static final int customProfile=0x7f080012;
+        public static final int locEditText=0x7f080007;
+        public static final int locationRadioGroup=0x7f080003;
+        public static final int profileEditText=0x7f080013;
+        public static final int profileRadioGroup=0x7f08000f;
+        public static final int realCarrier=0x7f080016;
+        public static final int realIMEI=0x7f08000a;
+        public static final int realLoc=0x7f080004;
+        public static final int realProfile=0x7f080010;
+        public static final int save=0x7f08001a;
         public static final int textView1=0x7f080001;
-        public static final int textView2=0x7f080000;
+        public static final int textView2=0x7f080002;
+        public static final int textView3=0x7f080008;
+        public static final int textView4=0x7f08000e;
+        public static final int textView5=0x7f080014;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -41,16 +60,19 @@ public final class R {
         public static final int main=0x7f070000;
     }
     public static final class string {
+        public static final int IMEILabel=0x7f050004;
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int bogusLabel=0x7f050005;
-        public static final int customLabel=0x7f050004;
+        public static final int bogusLabel=0x7f050008;
+        public static final int carrierLabel=0x7f050006;
+        public static final int customLabel=0x7f050007;
         public static final int locationLabel=0x7f050003;
-        public static final int realLabel=0x7f050006;
+        public static final int profileLabel=0x7f050005;
+        public static final int realLabel=0x7f050009;
         public static final int resourceLabel=0x7f050002;
-        public static final int sandbox_loc_desc=0x7f050007;
-        public static final int sandbox_loc_label=0x7f050008;
-        public static final int save=0x7f050009;
+        public static final int sandbox_loc_desc=0x7f05000a;
+        public static final int sandbox_loc_label=0x7f05000b;
+        public static final int save=0x7f05000c;
     }
     public static final class style {
         /** 
