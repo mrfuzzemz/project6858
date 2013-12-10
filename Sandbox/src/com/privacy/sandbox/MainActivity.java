@@ -124,6 +124,13 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	public void saveToDB(View view){
+		saveLocationToDB(view);
+		saveIMEIToDB(view);
+		saveProfileToDB(view);
+		saveCarrierToDB(view);
+	}
+	
 	public void saveLocationToDB(View view) {
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.locationRadioGroup);
 		String value = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();

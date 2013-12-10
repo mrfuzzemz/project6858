@@ -70,23 +70,13 @@
         android:layout_toRightOf="@+id/textView1"
         android:ems="10" />
 
-    <Button
-        android:id="@+id/saveLoc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/locationRadioGroup"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/locEditText"
-        android:text="@string/save" 
-        android:onClick="saveLocationToDB"/>
-
     <!-- IMEI Section -->
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/saveLoc"
+        android:layout_below="@+id/locEditText"
         android:layout_marginTop="16dp"
         android:text="@string/IMEILabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -131,28 +121,16 @@
         android:layout_toRightOf="@+id/textView1"
         android:ems="10" />
 
-    <Button
-        android:id="@+id/saveIMEI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/IMEIRadioGroup"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/locEditText"
-        android:text="@string/save" 
-        android:onClick="saveIMEIToDB"/>    
-    
     <!-- Profile Section -->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/saveIMEI"
+        android:layout_below="@+id/IMEIEditText"
         android:layout_marginTop="16dp"
         android:text="@string/profileLabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
     <RadioGroup
         android:id="@+id/profileRadioGroup"
@@ -192,24 +170,13 @@
         android:layout_toRightOf="@+id/textView1"
         android:ems="10" />
 
-    <Button
-        android:id="@+id/saveProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/profileRadioGroup"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/locEditText"
-        android:text="@string/save" 
-        android:onClick="saveProfileToDB"/>        
-    
-    
     <!-- Carrier Section -->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/saveProfile"
+        android:layout_below="@+id/profileEditText"
         android:layout_marginTop="16dp"
         android:text="@string/carrierLabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -254,15 +221,17 @@
         android:layout_toRightOf="@+id/textView1"
         android:ems="10" />
 
+    
+    <!-- Save all settings -->
     <Button
-        android:id="@+id/saveCarrier"
+        android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/carrierRadioGroup"
-        android:layout_marginTop="10dp"
-        android:layout_toLeftOf="@+id/locEditText"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dip"
         android:text="@string/save" 
-        android:onClick="saveCarrierToDB"/>     
+        android:onClick="saveToDB"/>     
     
     
     
