@@ -38,7 +38,6 @@ public class Permission {
 		this.permValue = permValue;
 	}
 
-	// Will be used by the ArrayAdapter in the ListView
 	@Override
 	public String toString() {
 		return "App: " + appName + ", permission " + permName + ", set to " + permValue;

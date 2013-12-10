@@ -92,56 +92,54 @@ public class PermissionsDataSource {
 		return result;
 	}
 	
-	public void deletePermission(Permission Permission) {
-		long id = Permission.getId();
+	public void deletePermission(Permission permission) {
+		long id = permission.getId();
 		System.out.println("Permission deleted with id: " + id);
 		database.delete(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, PermissionsOpenHelper.ID
 				+ " = " + id, null);
 	}
 
 	public List<Permission> getAllPermissions() {
-		List<Permission> Permissions = new ArrayList<Permission>();
+		List<Permission> permissions = new ArrayList<Permission>();
 
 		Cursor cursor = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME,
 				allColumns, null, null, null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Permission Permission = cursorToPermission(cursor);
-			Permissions.add(Permission);
+			Permission permission = cursorToPermission(cursor);
+			permissions.add(permission);
 			cursor.moveToNext();
 		}
 		// make sure to close the cursor
 		cursor.close();
-		return Permissions;
+		return permissions;
 	}
 	
 	public List<Permission> getAllPermissions(String appName) {
 		String[] where = {appName};
-		List<Permission> Permissions = new ArrayList<Permission>();
+		List<Permission> permissions = new ArrayList<Permission>();
 
 		Cursor cursor = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME,
 				allColumns, PermissionsOpenHelper.APP_NAME + " = ?", where, null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Permission Permission = cursorToPermission(cursor);
-			Permissions.add(Permission);
+			Permission permission = cursorToPermission(cursor);
+			permissions.add(permission);
 			cursor.moveToNext();
 		}
 		// make sure to close the cursor
 		cursor.close();
-		return Permissions;
+		return permissions;
 	}
 
 	private Permission cursorToPermission(Cursor cursor) {
-		Permission Permission = new Permission();
-		Permission.setId(cursor.getLong(0));
-		Permission.setAppName(cursor.getString(1));
-		Permission.setPermName(cursor.getString(2));
-		Permission.setPermValue(cursor.getString(3));
-		return Permission;
+		Permission permission = new Permission();
+		permission.setId(cursor.getLong(0));
+		permission.setAppName(cursor.getString(1));
+		permission.setPermName(cursor.getString(2));
+		permission.setPermValue(cursor.getString(3));
+		return permission;
 	}
-
-	
 }
