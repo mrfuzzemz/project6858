@@ -8,5 +8,6 @@
     <string name="requestProfileButton">Request Profile</string>
     <string name="requestIMEIButton">Request IMEI</string>
     <string name="requestCarrierButton">Request Carrier</string>
+    <string name="requestContactsButton">Request Contacts</string>
     
 </resources>
