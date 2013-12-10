@@ -69,9 +69,7 @@ public class MainActivity extends Activity {
 		} else {
 			Toast.makeText(this, "No apps known!", Toast.LENGTH_LONG).show();
 		}
-		
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
-		
+				
 		//populate the spinner with the app list
 		populateSpinnerApps(knownApps);
 		
@@ -96,8 +94,6 @@ public class MainActivity extends Activity {
     public void populateSpinnerApps(List<String> applist) {
 	  	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
 	  	
-	  	//List<String> list = new ArrayList<String>();
-	  	//list.add(appName);
 	  	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
 	  		android.R.layout.simple_spinner_item, applist);
 	  	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -186,8 +182,14 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	//TODO get appName from the spinner selection
 	public void saveAllToDB(View view){
-		String appName = "SandboxedApp";
+		if (spinnerApps.getCount() == 0){
+			Toast.makeText(this, "No apps! Can't save settings!", Toast.LENGTH_SHORT).show();
+			return;
+		}
+
+		String appName = (String) spinnerApps.getSelectedItem();
 		saveToDB(view, appName, "location", R.id.locationRadioGroup, R.id.locEditText);
 		saveToDB(view, appName, "imei", R.id.IMEIRadioGroup, R.id.IMEIEditText);
 		saveToDB(view, appName, "profile", R.id.profileRadioGroup, R.id.profileEditText);
