@@ -17,7 +17,7 @@ public class SandboxedMainActivity extends Activity {
 		
 		Intent i = new Intent();
 		i.putExtra("name", "SandboxedApp");
-		i.setAction("com.privacy.sandbox.REQUEST_IDENTIFIER");
+		i.setAction("com.privacy.sandbox.SEND_NAME");
 
 		sendBroadcast(i);
 

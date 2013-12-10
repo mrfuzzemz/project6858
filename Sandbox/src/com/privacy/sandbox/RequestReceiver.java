@@ -48,11 +48,7 @@ public class RequestReceiver extends BroadcastReceiver {
 		else if (data.contains("Custom:")){
 			// Send custom value (Cut off "Custom: ")
 			data = data.substring(MainActivity.CUSTOM_OFFSET);
-			// data = data;
 		}
-		
-		
-		
 		
 		Intent i = new Intent();
 		i.putExtra("data", data);
@@ -62,3 +58,4 @@ public class RequestReceiver extends BroadcastReceiver {
 	}
 
 }
+
