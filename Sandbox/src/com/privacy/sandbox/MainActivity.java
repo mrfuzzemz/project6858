@@ -78,6 +78,18 @@ public class MainActivity extends Activity {
 		// Add a listener for the list to select the appropriate App in the database
 		addListenerOnSpinnerItemSelection();
 	}
+    
+    @Override
+    protected void onResume(){
+		populateSpinnerApps(recordsource.getAllAppRecords());
+		super.onResume();
+    }
+    
+    @Override
+    protected void onStart(){
+		populateSpinnerApps(recordsource.getAllAppRecords());
+		super.onStart();
+    }
 
     // Setup Apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
     // add item into spinnerApps
@@ -204,9 +216,10 @@ public class MainActivity extends Activity {
 	//TODO: make this update the spinner
 	public static AppRecord addAppRecord(String appName){
 		AppRecord ap = recordsource.createAppRecordIfNotExists(appName);
+				
 		return ap;
 	}
-    
+	    
     // Functions to get the good stuff
     
 	// Get the phone owner's name (be sure to set this up on the phone!!!)
