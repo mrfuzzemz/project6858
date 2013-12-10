@@ -1,13 +1,10 @@
 package com.privacy.sandbox;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import android.os.Bundle;
-
 import android.provider.ContactsContract;
-
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,12 +14,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static PermissionsDataSource datasource;
 	private static contactListHelper cLH;
+	private static AppRecordDataSource recordsource;
 
 	private static String userName = "";
 	private static String phoneIMEI = "";
@@ -58,7 +55,16 @@ public class MainActivity extends Activity {
 		datasource = new PermissionsDataSource(this);
 		datasource.open();
 		
-		checkCurrentSettings("SandboxedApp");
+		recordsource = new AppRecordDataSource(this);
+		recordsource.open();
+		
+		List<AppRecord> knownApps = recordsource.getAllAppRecords();
+		
+		if (! knownApps.isEmpty()){
+			checkCurrentSettings(knownApps.get(0).getName());
+		} else {
+			Toast.makeText(this, "No apps known!", Toast.LENGTH_LONG).show();
+		}
 		
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 	}
@@ -164,6 +170,10 @@ public class MainActivity extends Activity {
 	
 	public static Permission getPermission(String appName, String permName){
 		return datasource.getPermission(appName, permName);
+	}
+	
+	public static AppRecord addAppRecord(String appName){
+		return recordsource.createAppRecordIfNotExists(appName);
 	}
     
     // Functions to get the good stuff

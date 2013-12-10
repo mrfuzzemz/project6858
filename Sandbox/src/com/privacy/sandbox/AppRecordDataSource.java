@@ -13,12 +13,12 @@ public class AppRecordDataSource {
 
 	// Database fields
 	private SQLiteDatabase database;
-	private PermissionsOpenHelper dbHelper;
+	private AppRecordOpenHelper dbHelper;
 	private String[] allColumns = { AppRecordOpenHelper.ID,
 			AppRecordOpenHelper.APP_NAME };
 
 	public AppRecordDataSource(Context context) {
-		dbHelper = new PermissionsOpenHelper(context);
+		dbHelper = new AppRecordOpenHelper(context);
 	}
 
 	public void open() throws SQLException {
@@ -29,20 +29,32 @@ public class AppRecordDataSource {
 		dbHelper.close();
 	}
 
-	public AppRecord createAppRecord(String appName) {
-		ContentValues values = new ContentValues();
-		values.put(AppRecordOpenHelper.APP_NAME, appName);
-		long insertId = database.insert(AppRecordOpenHelper.TABLE_NAME, null,
-				values);
-		Cursor cursor = database.query(AppRecordOpenHelper.TABLE_NAME,
-				allColumns, PermissionsOpenHelper.ID + " = " + insertId, null,
+	public AppRecord createAppRecordIfNotExists(String appName) {
+		Cursor c = database.query(AppRecordOpenHelper.TABLE_NAME,
+				allColumns, AppRecordOpenHelper.APP_NAME + " = " + appName, null,
 				null, null, null);
-		cursor.moveToFirst();
-		AppRecord newAP = cursorToAppRecord(cursor);
-		cursor.close();
-		return newAP;
+
+		AppRecord ap;
+
+		if (!c.moveToFirst()){
+			ContentValues values = new ContentValues();
+			values.put(AppRecordOpenHelper.APP_NAME, appName);
+			long insertId = database.insert(AppRecordOpenHelper.TABLE_NAME, null,
+					values);
+			Cursor cursor = database.query(AppRecordOpenHelper.TABLE_NAME,
+					allColumns, PermissionsOpenHelper.ID + " = " + insertId, null,
+					null, null, null);
+			cursor.moveToFirst();
+			ap = cursorToAppRecord(cursor);
+			cursor.close();
+		} else {
+			ap = cursorToAppRecord(c);
+		}
+		c.close();
+
+		return ap;
 	}
-	
+
 	public void deleteAppRecord(AppRecord ap) {
 		long id = ap.getId();
 		System.out.println("App record deleted with id: " + id);
@@ -71,9 +83,9 @@ public class AppRecordDataSource {
 		AppRecord ap = new AppRecord();
 		ap.setId(cursor.getLong(0));
 		ap.setName(cursor.getString(1));
-		
+
 		return ap;
 	}
 
-	
+
 }

@@ -12,7 +12,7 @@ public class AppRecordOpenHelper extends SQLiteOpenHelper {
 	public static final String ID = "_id";
 	public static final String APP_NAME = "appName";
 
-	private static final String DATABASE_NAME = "permissions.db";
+	private static final String DATABASE_NAME = "appRecords.db";
 	public static final String TABLE_NAME = "appRecords";
 
 	// Database creation sql statement
