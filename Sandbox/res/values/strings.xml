@@ -8,6 +8,7 @@
     <string name="IMEILabel">IMEI</string>
     <string name="profileLabel">Profile</string>
     <string name="carrierLabel">Carrier</string>
+    <string name="App">App</string>
     
     <string name="customLabel">Custom</string>
     <string name="bogusLabel">Bogus</string>

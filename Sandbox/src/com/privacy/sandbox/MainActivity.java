@@ -1,5 +1,6 @@
 package com.privacy.sandbox;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,14 +12,18 @@ import android.database.Cursor;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static PermissionsDataSource datasource;
 	private static AppRecordDataSource recordsource;
+	
+	private Spinner spinnerApps;
 
 	private static String userName = "";
 	private static String phoneIMEI = "";
@@ -63,8 +68,42 @@ public class MainActivity extends Activity {
 		}
 		
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
+		
+		// Example function to add App with name "testAppName" to dropdown menu
+		List<String> appList = new ArrayList<String>();
+		appList.add("App1");
+		appList.add("App2");
+		
+
+
+		populateSpinnerApps(appList);
+		// How to check what is currently selected
+		String selectedApp = String.valueOf(spinnerApps.getSelectedItem());
+		
+		// Add a listener for the list to select the appropriate App in the database
+		addListenerOnSpinnerItemSelection();
+
 	}
 
+    // Setup Apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
+    // add item into spinnerApps
+    public void populateSpinnerApps(List applist) {
+   
+	  	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
+	  	
+	  	//List<String> list = new ArrayList<String>();
+	  	//list.add(appName);
+	  	ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+	  		android.R.layout.simple_spinner_item, applist);
+	  	dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+	  	spinnerApps.setAdapter(dataAdapter);
+    }    
+    
+    public void addListenerOnSpinnerItemSelection() {
+    	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
+    	spinnerApps.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+      }
+    
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

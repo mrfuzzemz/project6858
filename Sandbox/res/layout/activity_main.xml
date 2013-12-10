@@ -7,6 +7,15 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
+    
+    <!--  Dropdown menu for Apps -->
+    <Spinner
+        android:id="@+id/spinnerApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignParentTop="true" /> 
+    
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -14,7 +23,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="66dp"
         android:text="@string/resourceLabel"
         android:textAppearance="?android:attr/textAppearanceLarge" />    
     
@@ -231,9 +240,9 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="10dip"
         android:text="@string/save" 
-        android:onClick="saveAllToDB"/>     
-    
-    
+        android:onClick="saveAllToDB"/>
+
+
     
 </RelativeLayout>
 </ScrollView>
