@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	private static PermissionsDataSource datasource;
+	private static contactListHelper cLH;
 
 	private static String userName = "";
 	private static String phoneIMEI = "";
@@ -50,6 +51,9 @@ public class MainActivity extends Activity {
 			userName = "";
 		}
 		c.close();
+		
+		cLH = new contactListHelper();
+		cLH.updateContactList(getBaseContext());
     
 		datasource = new PermissionsDataSource(this);
 		datasource.open();
@@ -108,6 +112,18 @@ public class MainActivity extends Activity {
 					selected = (RadioButton) findViewById(R.id.customProfile);
 					((EditText)findViewById(R.id.profileEditText)).setText(value.substring(CUSTOM_OFFSET));
 				}
+			} else if(permissionName.equals("contacts")) {
+				rg = (RadioGroup) findViewById(R.id.contactsRadioGroup);
+				if (value.equals("Real")) {
+					selected = (RadioButton) findViewById(R.id.realContacts);
+				} else if (value.equals("Name Only")) {
+					selected = (RadioButton) findViewById(R.id.nameContacts);
+				} else if (value.equals("Bogus")){
+					selected = (RadioButton) findViewById(R.id.bogusContacts);
+				} else { //custom
+					selected = (RadioButton) findViewById(R.id.customContacts);
+					((EditText)findViewById(R.id.contactsEditText)).setText(value.substring(CUSTOM_OFFSET));
+				}
 			} else { //carrier
 				rg = (RadioGroup) findViewById(R.id.carrierRadioGroup);
 				if (value.equals("Real")) {
@@ -116,7 +132,7 @@ public class MainActivity extends Activity {
 					selected = (RadioButton) findViewById(R.id.bogusCarrier);
 				} else { //custom
 					selected = (RadioButton) findViewById(R.id.customCarrier);
-					((EditText)findViewById(R.id.locEditText)).setText(value.substring(CUSTOM_OFFSET));
+					((EditText)findViewById(R.id.carrierEditText)).setText(value.substring(CUSTOM_OFFSET));
 				}
 			}
 			rg.check(selected.getId());
@@ -130,6 +146,7 @@ public class MainActivity extends Activity {
 		saveToDB(view, appName, "imei", R.id.IMEIRadioGroup, R.id.IMEIEditText);
 		saveToDB(view, appName, "profile", R.id.profileRadioGroup, R.id.profileEditText);
 		saveToDB(view, appName, "carrier", R.id.carrierRadioGroup, R.id.carrierEditText);
+		saveToDB(view, appName, "contacts", R.id.contactsRadioGroup, R.id.contactsEditText);
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 	}
 	
@@ -164,5 +181,17 @@ public class MainActivity extends Activity {
     // Get the phone wireless carrier name
     public static String getCarrierName(){
     	return carrierName;
+    }
+    
+    //Get phone contacts
+    public static String getContactsList(Context c){
+    	cLH.updateContactList(c);
+    	return cLH.getAllContacts();
+    }
+    
+  //Get phone contact names
+    public static String getContactsNames(Context c){
+    	cLH.updateContactList(c);
+    	return cLH.getAllNames();
     }
 }

@@ -3,9 +3,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-<RelativeLayout 
+<RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/textView1"
@@ -16,10 +16,10 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="22dp"
         android:text="@string/resourceLabel"
-        android:textAppearance="?android:attr/textAppearanceLarge" />    
-    
-    
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <!-- Location section -->
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -29,8 +29,6 @@
         android:layout_marginTop="16dp"
         android:text="@string/locationLabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
     <RadioGroup
         android:id="@+id/locationRadioGroup"
@@ -61,16 +59,18 @@
     </RadioGroup>
 
     <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+
     <EditText
-        android:inputType="textNoSuggestions"  
         android:id="@+id/locEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/locationRadioGroup"
         android:layout_toRightOf="@+id/textView1"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textNoSuggestions" />
 
     <!-- IMEI Section -->
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -80,8 +80,6 @@
         android:layout_marginTop="16dp"
         android:text="@string/IMEILabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
     <RadioGroup
         android:id="@+id/IMEIRadioGroup"
@@ -112,16 +110,18 @@
     </RadioGroup>
 
     <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+
     <EditText
-        android:inputType="textNoSuggestions"  
         android:id="@+id/IMEIEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/IMEIRadioGroup"
         android:layout_toRightOf="@+id/textView1"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textNoSuggestions" />
 
     <!-- Profile Section -->
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -161,16 +161,18 @@
     </RadioGroup>
 
     <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+
     <EditText
-        android:inputType="textNoSuggestions"  
         android:id="@+id/profileEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/profileRadioGroup"
         android:layout_toRightOf="@+id/textView1"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textNoSuggestions" />
 
     <!-- Carrier Section -->
+
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
@@ -180,8 +182,6 @@
         android:layout_marginTop="16dp"
         android:text="@string/carrierLabel"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
 
     <RadioGroup
         android:id="@+id/carrierRadioGroup"
@@ -212,28 +212,81 @@
     </RadioGroup>
 
     <!-- Put textNoSuggestions since we don't know what values it needs yet -->
+
     <EditText
-        android:inputType="textNoSuggestions"  
         android:id="@+id/carrierEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/carrierRadioGroup"
         android:layout_toRightOf="@+id/textView1"
-        android:ems="10" />
+        android:ems="10"
+        android:inputType="textNoSuggestions" />
 
-    
     <!-- Save all settings -->
+
+    <RadioGroup
+        android:id="@+id/contactsRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/carrierRadioGroup"
+        android:layout_below="@+id/carrierRadioGroup"
+        android:layout_marginTop="64dp" >
+
+        <RadioButton
+            android:id="@+id/realContacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/realLabel" />
+
+        <RadioButton
+            android:id="@+id/nameContacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nameLabel" />
+
+        <RadioButton
+            android:id="@+id/bogusContacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bogusLabel" />
+
+        <RadioButton
+            android:id="@+id/customContacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/customLabel" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/contactsEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/contactsRadioGroup"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textNoSuggestions" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/contactsRadioGroup"
+        android:layout_below="@+id/carrierRadioGroup"
+        android:layout_marginTop="30dp"
+        android:text="@string/contactsLabel"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/carrierRadioGroup"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dip"
-        android:text="@string/save" 
-        android:onClick="saveAllToDB"/>     
-    
-    
-    
+        android:layout_below="@+id/contactsRadioGroup"
+        android:layout_marginTop="19dp"
+        android:layout_toRightOf="@+id/textView2"
+        android:onClick="saveAllToDB"
+        android:text="@string/save" />
+
 </RelativeLayout>
+
 </ScrollView>

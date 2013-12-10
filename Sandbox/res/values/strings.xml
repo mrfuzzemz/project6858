@@ -18,4 +18,6 @@
  
     
     <string name="save">Save All Settings</string>
+    <string name="contactsLabel">Contacts</string>
+    <string name="nameLabel">Name Only</string>
 </resources>
