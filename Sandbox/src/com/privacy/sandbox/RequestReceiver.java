@@ -39,6 +39,16 @@ public class RequestReceiver extends BroadcastReceiver {
 				// grab carrier
 				data = MainActivity.getCarrierName();
 			}
+			else if (request.equals("contacts")){
+				//grab contacts
+				data = MainActivity.getContactsList(arg0);
+			}
+		}
+		else if (data.equals("Name Only")) {
+			if(request.equals("contacts")) {
+				//grab name only for contacts
+				data = MainActivity.getContactsNames(arg0);
+			}
 		}
 		else if (data.equals("Bogus")){
 			//send bogus data along
