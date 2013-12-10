@@ -1,6 +1,5 @@
 package com.privacy.sandbox;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -63,36 +62,26 @@ public class MainActivity extends Activity {
 		recordsource = new AppRecordDataSource(this);
 		recordsource.open();
 		
-		List<AppRecord> knownApps = recordsource.getAllAppRecords();
-		
+		List<String> knownApps = recordsource.getAllAppRecords();
+
 		if (! knownApps.isEmpty()){
-			checkCurrentSettings(knownApps.get(0).getName());
+			checkCurrentSettings(knownApps.get(0));
 		} else {
 			Toast.makeText(this, "No apps known!", Toast.LENGTH_LONG).show();
 		}
 		
 		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 		
-		// Example function to add App with name "testAppName" to dropdown menu
-		List<String> appList = new ArrayList<String>();
-		appList.add("App1");
-		appList.add("App2");
-		
-
-
-		populateSpinnerApps(appList);
-		// How to check what is currently selected
-		String selectedApp = String.valueOf(spinnerApps.getSelectedItem());
+		//populate the spinner with the app list
+		populateSpinnerApps(knownApps);
 		
 		// Add a listener for the list to select the appropriate App in the database
 		addListenerOnSpinnerItemSelection();
-
 	}
 
     // Setup Apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
     // add item into spinnerApps
-    public void populateSpinnerApps(List applist) {
-   
+    public void populateSpinnerApps(List<String> applist) {
 	  	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
 	  	
 	  	//List<String> list = new ArrayList<String>();
@@ -208,11 +197,14 @@ public class MainActivity extends Activity {
 	}	
 	
 	public static Permission getPermission(String appName, String permName){
-		return datasource.getPermission(appName, permName);
+		Permission p = datasource.getPermission(appName, permName);
+		return p;
 	}
 	
+	//TODO: make this update the spinner
 	public static AppRecord addAppRecord(String appName){
-		return recordsource.createAppRecordIfNotExists(appName);
+		AppRecord ap = recordsource.createAppRecordIfNotExists(appName);
+		return ap;
 	}
     
     // Functions to get the good stuff

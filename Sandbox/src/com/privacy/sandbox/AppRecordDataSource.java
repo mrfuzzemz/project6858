@@ -30,8 +30,10 @@ public class AppRecordDataSource {
 	}
 
 	public AppRecord createAppRecordIfNotExists(String appName) {
+		String[] where = {appName};
+		
 		Cursor c = database.query(AppRecordOpenHelper.TABLE_NAME,
-				allColumns, AppRecordOpenHelper.APP_NAME + " = " + appName, null,
+				allColumns, AppRecordOpenHelper.APP_NAME + " = ?", where,
 				null, null, null);
 
 		AppRecord ap;
@@ -62,16 +64,15 @@ public class AppRecordDataSource {
 				+ " = " + id, null);
 	}
 
-	public List<AppRecord> getAllAppRecords() {
-		List<AppRecord> appRecords = new ArrayList<AppRecord>();
+	public List<String> getAllAppRecords() {
+		List<String> appRecords = new ArrayList<String>();
 
 		Cursor cursor = database.query(AppRecordOpenHelper.TABLE_NAME,
 				allColumns, null, null, null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			AppRecord ap = cursorToAppRecord(cursor);
-			appRecords.add(ap);
+			appRecords.add(cursorToAppRecord(cursor).getName());
 			cursor.moveToNext();
 		}
 		// make sure to close the cursor
