@@ -63,7 +63,7 @@ public class AppRecordDataSource {
 				cursor.close();
 			}
 		} else {
-			ap = cursorToAppRecord(c);
+			ap = null;
 		}
 		c.close();
 

@@ -195,6 +195,7 @@ public class MainActivity extends Activity {
 		saveToDB(view, appName, "profile", R.id.profileRadioGroup, R.id.profileEditText);
 		saveToDB(view, appName, "carrier", R.id.carrierRadioGroup, R.id.carrierEditText);
 		saveToDB(view, appName, "contacts", R.id.contactsRadioGroup, R.id.contactsEditText);
+		Toast.makeText(this, "Settings saved.", Toast.LENGTH_SHORT).show();
 	}
 	
 	// Function to save user input permission settings
@@ -207,13 +208,13 @@ public class MainActivity extends Activity {
 			permissionSetting = "Custom: " + mEdit.getText().toString();
 		}
 
-		datasource.createOrUpdatePermission(appName, permName, permissionSetting);
+		datasource.editPermission(appName, permName, permissionSetting);
 	}	
 	
 	// Function to create entries for permissions when Sandbox learns about an app
 	// Default value for all permissions is Bogus
 	public static void saveToDB(String appName, String permName){
-		datasource.createOrUpdatePermission(appName, permName, "Bogus");
+		datasource.createPermissionIfNotExists(appName, permName, "Bogus");
 	}
 	
 	

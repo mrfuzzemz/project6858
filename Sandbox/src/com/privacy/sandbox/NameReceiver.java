@@ -17,8 +17,6 @@ public class NameReceiver extends BroadcastReceiver {
 				
 		if (newRecord != null){
 			Toast.makeText(arg0, newRecord.toString(), Toast.LENGTH_SHORT).show();
-		} else {
-			Toast.makeText(arg0, "Broadcast permission already in use.", Toast.LENGTH_SHORT).show();
 		}
 	}
 }

@@ -10,14 +10,13 @@
 
     <permission 
         android:description="@string/sandbox_loc_desc" 
-        android:name="com.privacy.sandbox.SANDBOX_LOCATION" 
-        android:protectionLevel="normal" 
-        android:label="@string/sandbox_loc_label">
+        android:name="com.privacy.sandbox.SANDBOX_MSG" 
+        android:protectionLevel="signature" >
     </permission>
     
 
     <uses-permission    
-        android:name="com.privacy.sandbox.SANDBOX_LOCATION">
+        android:name="com.privacy.sandbox.SANDBOX_MSG">
     </uses-permission>
 
     <uses-permission android:name="android.permission.READ_PROFILE"/>
@@ -39,7 +38,8 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="RequestReceiver">
+        <receiver android:name="RequestReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.privacy.sandbox.REQUEST_VALUE" />
             </intent-filter>
