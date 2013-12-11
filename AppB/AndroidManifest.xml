@@ -9,7 +9,7 @@
         android:targetSdkVersion="18" />
     
     <permission android:name="com.privacy.sandbox.SANDBOX_APP_B"
-        android:protection_level="signature"/>
+        android:protectionLevel="signature"/>
     
     <uses-permission android:name="com.privacy.sandbox.SANDBOX_APP_B"></uses-permission>
 
