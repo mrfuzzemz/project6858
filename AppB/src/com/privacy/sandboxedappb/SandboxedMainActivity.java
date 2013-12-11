@@ -1,5 +1,6 @@
 package com.privacy.sandboxedappb;
 
+import com.privacy.sandboxedapp.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,6 +19,7 @@ public class SandboxedMainActivity extends Activity {
 		
 		Intent i = new Intent();
 		i.putExtra("name", APP_NAME);
+		i.putExtra("broadcastLabel", "com.privacy.sandbox.SANDBOX_APP_B");
 		i.setAction("com.privacy.sandbox.SEND_NAME");
 
 		sendBroadcast(i);
