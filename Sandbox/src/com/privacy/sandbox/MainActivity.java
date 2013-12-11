@@ -24,12 +24,18 @@ public class MainActivity extends Activity {
 	private static contactListHelper cLH;
 	private static AppRecordDataSource recordsource;
 	
-	private Spinner spinnerApps;
-
 	private static String userName = "";
 	private static String phoneIMEI = "";
 	private static String carrierName = "";
 	
+	
+	private Spinner spinnerApps;
+    private final int[] locButtonIDs = {R.id.realLoc, R.id.bogusLoc, R.id.customLoc};		
+    private final int[] imeiButtonIDs = {R.id.realIMEI, R.id.bogusIMEI, R.id.customIMEI};
+	private final int[] profileButtonIDs = {R.id.realProfile, R.id.bogusProfile, R.id.customProfile};
+	private final int[] contactsButtonIDs = {R.id.realContacts, R.id.bogusContacts, R.id.customContacts, R.id.nameContacts};
+	private final int[] carrierButtonIDs = {R.id.realCarrier, R.id.bogusCarrier, R.id.customCarrier};
+
 	//for removing Custom label from custom permissions
 	public static final int CUSTOM_OFFSET = "Custom: ".length(); 
 	
@@ -128,6 +134,7 @@ public class MainActivity extends Activity {
         });
       }
     
+    
     // selects the appropriate radio buttons for the given app name
     public void selectCurrentSettings(String appName){    	
 		List<Permission> perms = datasource.getAllPermissions(appName);
@@ -138,64 +145,40 @@ public class MainActivity extends Activity {
 			String permissionName = p.getPermName();
 			String value = p.getPermValue();
 			
-			RadioGroup rg;
-			RadioButton selected;
+			int selectedIndex;
 			
-			if (permissionName.equals("location")){
-				rg = (RadioGroup) findViewById(R.id.locationRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realLoc);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusLoc);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customLoc);
-					((EditText)findViewById(R.id.locEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else if(permissionName.equals("imei")){
-				rg = (RadioGroup) findViewById(R.id.IMEIRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realIMEI);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusIMEI);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customIMEI);
-					((EditText)findViewById(R.id.IMEIEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else if (permissionName.equals("profile")){
-				rg = (RadioGroup) findViewById(R.id.profileRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realProfile);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusProfile);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customProfile);
-					((EditText)findViewById(R.id.profileEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else if(permissionName.equals("contacts")) {
-				rg = (RadioGroup) findViewById(R.id.contactsRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realContacts);
-				} else if (value.equals("Name Only")) {
-					selected = (RadioButton) findViewById(R.id.nameContacts);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusContacts);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customContacts);
-					((EditText)findViewById(R.id.contactsEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else { //carrier
-				rg = (RadioGroup) findViewById(R.id.carrierRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realCarrier);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusCarrier);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customCarrier);
-					((EditText)findViewById(R.id.carrierEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
+			if (value.equals("Real")) {
+				selectedIndex = 0;
+				value = "";
+			} else if (value.equals("Bogus")){
+				selectedIndex = 1; 			
+				value = "";
+			} else if (value.contains("Custom")){ 
+				selectedIndex = 2;
+				value = value.substring(CUSTOM_OFFSET);
+			} else { //name only option for Contacts
+				selectedIndex = 3;
+				value = "";
 			}
-			rg.check(selected.getId());
+			
+			
 
+			if (permissionName.equals("location")){
+				((RadioGroup) findViewById(R.id.locationRadioGroup)).check(locButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.locEditText)).setText(value);
+			} else if(permissionName.equals("imei")){
+				((RadioGroup) findViewById(R.id.IMEIRadioGroup)).check(imeiButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.IMEIEditText)).setText(value);
+			} else if (permissionName.equals("profile")){
+				((RadioGroup) findViewById(R.id.profileRadioGroup)).check(profileButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.profileEditText)).setText(value);
+			} else if(permissionName.equals("contacts")) {
+				((RadioGroup) findViewById(R.id.contactsRadioGroup)).check(contactsButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.contactsEditText)).setText(value);
+			} else { //carrier
+				((RadioGroup) findViewById(R.id.carrierRadioGroup)).check(carrierButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.carrierEditText)).setText(value);
+			}
 		}
 	}
 	
