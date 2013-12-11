@@ -63,6 +63,7 @@ public class RequestReceiver extends BroadcastReceiver {
 		Intent i = new Intent();
 		i.putExtra("data", data);
 		i.putExtra("name", appName);
+
 		i.setAction("com.privacy.sandbox.SEND_VALUE");
 
 		arg0.sendBroadcast(i);		

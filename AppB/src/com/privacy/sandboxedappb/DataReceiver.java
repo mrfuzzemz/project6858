@@ -1,4 +1,4 @@
-package com.privacy.sandboxedapp;
+package com.privacy.sandboxedappb;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

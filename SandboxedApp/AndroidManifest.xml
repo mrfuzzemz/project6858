@@ -8,7 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
     
-    <uses-permission android:name="com.privacy.sandbox.SANDBOX_LOCATION"/>
+    <permission android:name="com.privacy.sandbox.SANDBOX_APP_A"
+        android:protectionLevel="signature"/>
 
     <application
         android:allowBackup="true"
@@ -25,7 +26,8 @@
             </intent-filter>
         </activity>
         
-        <receiver android:name="DataReceiver">
+        <receiver android:name="DataReceiver"
+            android:permission="com.privacy.sandbox.SANDBOX_APP_A">
             <intent-filter>
                 <action android:name="com.privacy.sandbox.SEND_VALUE" />
             </intent-filter>
