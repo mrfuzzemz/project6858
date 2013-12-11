@@ -8,7 +8,7 @@ import android.view.View;
 
 
 public class SandboxedMainActivity extends Activity {
-	private static final String APP_NAME = "AppA";
+	public static final String APP_NAME = "AppA";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

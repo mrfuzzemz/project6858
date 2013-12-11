@@ -1,4 +1,5 @@
-package com.privacy.sandboxedapp;
+package com.privacy.sandboxedappb;
+
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -8,7 +9,7 @@ import android.view.View;
 
 
 public class SandboxedMainActivity extends Activity {
-	private static final String APP_NAME = "AppA";
+	public static final String APP_NAME = "AppB";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
