@@ -8,7 +8,7 @@ import android.view.View;
 
 
 public class SandboxedMainActivity extends Activity {
-	private static final String APP_NAME = "AppA";
+	public static final String APP_NAME = "AppA";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,6 +17,7 @@ public class SandboxedMainActivity extends Activity {
 		
 		Intent i = new Intent();
 		i.putExtra("name", APP_NAME);
+		i.putExtra("broadcastLabel", "com.privacy.sandbox.SANDBOX_APP_A");
 		i.setAction("com.privacy.sandbox.SEND_NAME");
 
 		sendBroadcast(i);

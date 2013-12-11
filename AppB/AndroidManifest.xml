@@ -8,7 +8,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
     
-    <uses-permission android:name="com.privacy.sandbox.SANDBOX_LOCATION"/>
+    <permission android:name="com.privacy.sandbox.SANDBOX_APP_B"
+        android:protection_level="signature"/>
 
     <application
         android:allowBackup="true"
