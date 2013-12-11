@@ -131,6 +131,7 @@ public class PermissionsDataSource {
 		}
 		// make sure to close the cursor
 		cursor.close();
+		
 		return permissions;
 	}
 

@@ -13,7 +13,7 @@ public class NameReceiver extends BroadcastReceiver {
 		Toast.makeText(arg0, "Sandbox received app name " + appName, Toast.LENGTH_SHORT).show();
 
 		AppRecord newRecord = MainActivity.addAppRecord(appName);
-		
+				
 		Toast.makeText(arg0, newRecord.toString(), Toast.LENGTH_LONG).show();
 
 	}

@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -62,18 +63,19 @@ public class MainActivity extends Activity {
 		recordsource = new AppRecordDataSource(this);
 		recordsource.open();
 		
+		//populate the spinner with the app list
 		List<String> knownApps = recordsource.getAllAppRecords();
 
+		populateSpinnerApps(knownApps);
+		
 		if (! knownApps.isEmpty()){
-			checkCurrentSettings(knownApps.get(0));
+			// fill in radio buttons with settings for first app in DB
+			selectCurrentSettings(knownApps.get(0));
 		} else {
 			Toast.makeText(this, "No apps known!", Toast.LENGTH_LONG).show();
 		}
-				
-		//populate the spinner with the app list
-		populateSpinnerApps(knownApps);
 		
-		// Add a listener for the list to select the appropriate App in the database
+		// Add a listener for the list to select the appropriate app in the database
 		addListenerOnSpinnerItemSelection();
 	}
     
@@ -89,7 +91,14 @@ public class MainActivity extends Activity {
 		super.onStart();
     }
 
-    // Setup Apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+    // Setup apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
     // add item into spinnerApps
     public void populateSpinnerApps(List<String> applist) {
 	  	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
@@ -100,19 +109,27 @@ public class MainActivity extends Activity {
 	  	spinnerApps.setAdapter(dataAdapter);
     }    
     
+    // add a listener to change the radio button selections when the user selects
+    // a different app
     public void addListenerOnSpinnerItemSelection() {
     	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
-    	spinnerApps.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+    	spinnerApps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+            {
+        		String appName = parent.getItemAtPosition(pos).toString();
+        		selectCurrentSettings(appName);
+            }
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+        });
       }
     
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	public void checkCurrentSettings(String appName){
+    // selects the appropriate radio buttons for the given app name
+    public void selectCurrentSettings(String appName){    	
 		List<Permission> perms = datasource.getAllPermissions(appName);
 		Iterator<Permission> iter = perms.iterator();
 		
@@ -182,7 +199,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	//TODO get appName from the spinner selection
+    // saves the current radio button selections for the current app selection
 	public void saveAllToDB(View view){
 		if (spinnerApps.getCount() == 0){
 			Toast.makeText(this, "No apps! Can't save settings!", Toast.LENGTH_SHORT).show();
@@ -195,9 +212,9 @@ public class MainActivity extends Activity {
 		saveToDB(view, appName, "profile", R.id.profileRadioGroup, R.id.profileEditText);
 		saveToDB(view, appName, "carrier", R.id.carrierRadioGroup, R.id.carrierEditText);
 		saveToDB(view, appName, "contacts", R.id.contactsRadioGroup, R.id.contactsEditText);
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
 	}
 	
+	// Function to save user input permission settings
 	public void saveToDB(View view, String appName, String permName, int rgID, int editTextID) {
 		RadioGroup radioGroup = (RadioGroup) findViewById(rgID);
 		String permissionSetting = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
@@ -210,18 +227,30 @@ public class MainActivity extends Activity {
 		datasource.createOrUpdatePermission(appName, permName, permissionSetting);
 	}	
 	
+	// Function to create entries for permissions when Sandbox learns about an app
+	// Default value for all permissions is Bogus
+	public static void saveToDB(String appName, String permName){
+		datasource.createOrUpdatePermission(appName, permName, "Bogus");
+	}
+	
+	
+	// Saves a record of the app name and sets all permissions to Bogus default
+	public static AppRecord addAppRecord(String appName){
+		AppRecord ap = recordsource.createAppRecordIfNotExists(appName);
+				
+		saveToDB(appName, "location");
+		saveToDB(appName, "imei");
+		saveToDB(appName, "profile");
+		saveToDB(appName, "carrier");
+		saveToDB(appName, "contacts");
+		return ap;
+	}
+	 
 	public static Permission getPermission(String appName, String permName){
 		Permission p = datasource.getPermission(appName, permName);
 		return p;
 	}
 	
-	//TODO: make this update the spinner
-	public static AppRecord addAppRecord(String appName){
-		AppRecord ap = recordsource.createAppRecordIfNotExists(appName);
-				
-		return ap;
-	}
-	    
     // Functions to get the good stuff
     
 	// Get the phone owner's name (be sure to set this up on the phone!!!)
