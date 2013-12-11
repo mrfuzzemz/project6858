@@ -218,15 +218,21 @@ public class MainActivity extends Activity {
 	
 	
 	// Saves a record of the app name and sets all permissions to Bogus default
-	public static AppRecord addAppRecord(String appName){
-		AppRecord ap = recordsource.createAppRecordIfNotExists(appName);
+	public static AppRecord addAppRecord(String appName, String broadcastLabel){
+		AppRecord ap = recordsource.createAppRecordIfNotExists(appName, broadcastLabel);
 				
-		saveToDB(appName, "location");
-		saveToDB(appName, "imei");
-		saveToDB(appName, "profile");
-		saveToDB(appName, "carrier");
-		saveToDB(appName, "contacts");
+		if (ap != null){
+			saveToDB(appName, "location");
+			saveToDB(appName, "imei");
+			saveToDB(appName, "profile");
+			saveToDB(appName, "carrier");
+			saveToDB(appName, "contacts");
+		} 
 		return ap;
+	}
+	
+	public static String getBroadcastLabel(String appName){
+		return recordsource.getBroadcastLabel(appName);
 	}
 	 
 	public static Permission getPermission(String appName, String permName){

@@ -21,7 +21,6 @@ public class SandboxedMainActivity extends Activity {
 		i.setAction("com.privacy.sandbox.SEND_NAME");
 
 		sendBroadcast(i);
-
 	}
 
 	@Override

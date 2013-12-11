@@ -11,15 +11,16 @@ public class AppRecordOpenHelper extends SQLiteOpenHelper {
 	private static final int DATABASE_VERSION = 2;
 	public static final String ID = "_id";
 	public static final String APP_NAME = "appName";
+	public static final String BROADCAST_LABEL = "broadcastLabel";
 
 	private static final String DATABASE_NAME = "appRecords.db";
 	public static final String TABLE_NAME = "appRecords";
 
 	// Database creation sql statement
 	private static final String DATABASE_CREATE = "create table "
-			+ TABLE_NAME + "(" + ID
-			+ " integer primary key autoincrement, " + APP_NAME 
-			+ " text not null);";
+			+ TABLE_NAME + "(" + ID + " integer primary key autoincrement, " 
+			+ APP_NAME + " text not null, " 
+			+ BROADCAST_LABEL + " text not null);";
 
 	public AppRecordOpenHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

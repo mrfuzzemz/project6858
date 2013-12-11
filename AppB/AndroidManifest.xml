@@ -10,6 +10,8 @@
     
     <permission android:name="com.privacy.sandbox.SANDBOX_APP_B"
         android:protection_level="signature"/>
+    
+    <uses-permission android:name="com.privacy.sandbox.SANDBOX_APP_B"></uses-permission>
 
     <application
         android:allowBackup="true"

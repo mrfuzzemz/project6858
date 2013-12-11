@@ -9,12 +9,16 @@ public class NameReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context arg0, Intent arg1) {		
 		String appName = arg1.getExtras().getString("name");
+		String broadcastLabel = arg1.getExtras().getString("broadcastLabel");
+		
+		Toast.makeText(arg0, "Sandbox received app name " + appName + " label " + broadcastLabel, Toast.LENGTH_SHORT).show();
 
-		Toast.makeText(arg0, "Sandbox received app name " + appName, Toast.LENGTH_SHORT).show();
-
-		AppRecord newRecord = MainActivity.addAppRecord(appName);
+		AppRecord newRecord = MainActivity.addAppRecord(appName, broadcastLabel);
 				
-		Toast.makeText(arg0, newRecord.toString(), Toast.LENGTH_LONG).show();
-
+		if (newRecord != null){
+			Toast.makeText(arg0, newRecord.toString(), Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(arg0, "Broadcast permission already in use.", Toast.LENGTH_SHORT).show();
+		}
 	}
 }

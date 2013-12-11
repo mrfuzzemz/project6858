@@ -17,6 +17,7 @@ public class RequestReceiver extends BroadcastReceiver {
 		Toast.makeText(arg0, "Sandbox received request for " + request, Toast.LENGTH_SHORT).show();
 
 		Permission perm = MainActivity.getPermission(appName, request);
+		String broadcastLabel = MainActivity.getBroadcastLabel(appName);
 	
 		if (perm != null){
 			data = perm.getPermValue();
@@ -62,11 +63,9 @@ public class RequestReceiver extends BroadcastReceiver {
 		
 		Intent i = new Intent();
 		i.putExtra("data", data);
-		i.putExtra("name", appName);
-
 		i.setAction("com.privacy.sandbox.SEND_VALUE");
 
-		arg0.sendBroadcast(i);		
+		arg0.sendBroadcast(i, broadcastLabel);		
 	}
 
 }
