@@ -1,4 +1,6 @@
-package com.privacy.sandboxedapp;
+package com.privacy.sandboxedappb;
+
+import com.privacy.sandboxedapp.R;
 
 import android.os.Bundle;
 import android.app.Activity;
