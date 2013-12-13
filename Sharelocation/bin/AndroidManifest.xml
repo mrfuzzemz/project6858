@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      android:installLocation="auto" package="com.kkinder.sharelocation" android:versionCode="141" android:versionName="1.4.1">
+    <uses-permission android:name="com.privacy.sandbox.SANDBOX_LOCATION"/>
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:allowBackup="true" android:allowClearUserData="true" android:debuggable="false">
+        <activity android:name=".Sharelocation"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Preferences"
+                  android:label="@string/preferences_activity">
+            <intent-filter>
+                <action android:name="com.kkinder.sharelocation.action.PREFERENCES" />
+            </intent-filter>
+		</activity>
+		<receiver android:name="DataReceiver">
+            <intent-filter>
+                <action android:name="com.privacy.sandbox.SEND_VALUE" />
+            </intent-filter>
+        </receiver>
+
+    <uses-library android:required="true" android:name="com.google.android.maps"></uses-library>
+</application>
+
+
+<uses-sdk android:targetSdkVersion="8" android:minSdkVersion="7"></uses-sdk>
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+</manifest> 
