@@ -57,7 +57,7 @@ public class PermissionsDataSource {
 				+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where);
 	}
 	
-	public Permission createOrUpdatePermission(String appName, String permName, String permValue){
+	public Permission createPermissionIfNotExists(String appName, String permName, String permValue){
 		ContentValues values = new ContentValues();
 		values.put(PermissionsOpenHelper.APP_NAME, appName);
 		values.put(PermissionsOpenHelper.PERM_NAME, permName);
@@ -67,10 +67,7 @@ public class PermissionsDataSource {
 		Cursor c = database.query(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, allColumns, PermissionsOpenHelper.APP_NAME 
 				+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where, null, null, null);
 		
-		if (c.moveToFirst()){
-			database.update(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, values, PermissionsOpenHelper.APP_NAME 
-					+ " = ? and " + PermissionsOpenHelper.PERM_NAME + " = ?", where);
-		} else {
+		if (!c.moveToFirst()){
 			database.insert(PermissionsOpenHelper.PERMISSIONS_TABLE_NAME, null,
 					values);
 		}

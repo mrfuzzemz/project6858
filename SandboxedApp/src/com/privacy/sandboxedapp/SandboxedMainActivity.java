@@ -8,7 +8,7 @@ import android.view.View;
 
 
 public class SandboxedMainActivity extends Activity {
-	private static final String APP_NAME = "AppA";
+	public static final String APP_NAME = "AppA";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -17,9 +17,10 @@ public class SandboxedMainActivity extends Activity {
 		
 		Intent i = new Intent();
 		i.putExtra("name", APP_NAME);
+		i.putExtra("broadcastLabel", "com.privacy.sandbox.SANDBOX_APP_A");
 		i.setAction("com.privacy.sandbox.SEND_NAME");
 
-		sendBroadcast(i);
+		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_MSG");
 
 	}
 
@@ -31,53 +32,31 @@ public class SandboxedMainActivity extends Activity {
 	}
 
 	public void requestLocation(View view) {
-		Intent i = new Intent();
-		i.putExtra("request", "location");
-		i.putExtra("name", APP_NAME);
-		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
-
-		sendBroadcast(i);		
+		sendRequest("location");	
 	}
 	
 	public void requestProfile(View view) {
-		Intent i = new Intent();
-		i.putExtra("request", "profile");
-		i.putExtra("name", APP_NAME);
-		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
-
-		sendBroadcast(i);
+		sendRequest("profile");
 	}
 	
 	public void requestIMEI(View view) {
-		Intent i = new Intent();
-		i.putExtra("request", "imei");
-		i.putExtra("name", APP_NAME);
-		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
-
-		sendBroadcast(i);
-		
+		sendRequest("imei");
 	}
 
 	public void requestCarrier(View view) {
-		Intent i = new Intent();
-		i.putExtra("request", "carrier");
-		i.putExtra("name", APP_NAME);
-		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
-
-		sendBroadcast(i);
-		
+		sendRequest("carrier");
 	}
 	
 	public void requestContacts(View view) {
+		sendRequest("contacts");
+	}
+	
+	public void sendRequest(String request){
 		Intent i = new Intent();
-		i.putExtra("request", "contacts");
+		i.putExtra("request", request);
 		i.putExtra("name", APP_NAME);
 		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
-		sendBroadcast(i);
-		
+		sendBroadcast(i, "com.privacy.sandbox.SANDBOX_MSG");
 	}
-	
-	
 }
-
