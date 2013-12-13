@@ -224,20 +224,11 @@ public class Sharelocation extends MapActivity {
     public void requestLocation() {
 		Intent i = new Intent();
 		i.putExtra("request", "location");
-		i.putExtra("name", "sharelocation");
+		i.putExtra("name", "Sharelocation");
 		i.setAction("com.privacy.sandbox.REQUEST_VALUE");
 
 		haveLocation = false;
 		
 		sendBroadcast(i);
-		
-		/*while(!haveLocation) {
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}*/
 	}
 }
