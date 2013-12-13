@@ -14,7 +14,7 @@ public class RequestReceiver extends BroadcastReceiver {
 		String appName = arg1.getExtras().getString("name");
 		String data = "";
 
-		Toast.makeText(arg0, "Sandbox received request for " + request, Toast.LENGTH_SHORT).show();
+		Toast.makeText(arg0, "Sandbox received request for " + request + " from " + appName, Toast.LENGTH_SHORT).show();
 
 		Permission perm = MainActivity.getPermission(appName, request);
 	
@@ -28,7 +28,8 @@ public class RequestReceiver extends BroadcastReceiver {
 			//grab real value and send that along
 			if (request.equals("location")){
 				// grab location
-				data = "Cambridge, MA";
+				//GPS for Cambridge, MA in microdegrees
+				data = "42373611;-71110556";
 			} else if (request.equals("profile")){
 				// grab profile
 				data = MainActivity.getUserName();
@@ -52,8 +53,15 @@ public class RequestReceiver extends BroadcastReceiver {
 		}
 		else if (data.equals("Bogus")){
 			//send bogus data along
-			Random rand = new Random();
-			data = String.valueOf(rand.nextInt());	
+			if (request.equals("location")){
+				// grab location
+				Random rand = new Random();
+				//Get random GPS coords in microdegrees
+				data = String.valueOf(rand.nextInt(10000000))+";"+String.valueOf(rand.nextInt(10000000));
+			} else {
+				Random rand = new Random();
+				data = String.valueOf(rand.nextInt());	
+			}
 		}
 		else if (data.contains("Custom:")){
 			// Send custom value (Cut off "Custom: ")
