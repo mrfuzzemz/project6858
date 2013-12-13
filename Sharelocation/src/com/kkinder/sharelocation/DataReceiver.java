@@ -14,9 +14,13 @@ public class DataReceiver extends BroadcastReceiver {
 			String data = arg1.getExtras().getString("data");
 			Log.d("test",data);
 			String[] coords = data.split(";");
-			Sharelocation.lastLocation = new GeoPoint(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
-			Sharelocation.haveLocation = true;
-			Toast.makeText(arg0, "ShareLocation received " + data, Toast.LENGTH_LONG).show();
+			if(coords.length != 2) {
+				Toast.makeText(arg0, "Please set permissions for Sharelocation in Sandbox", Toast.LENGTH_LONG).show();
+			} else {
+				Sharelocation.lastLocation = new GeoPoint(Integer.parseInt(coords[0]), Integer.parseInt(coords[1]));
+				Sharelocation.haveLocation = true;
+				Toast.makeText(arg0, "ShareLocation received " + data, Toast.LENGTH_LONG).show();
+			}
 		 }
 
 }
