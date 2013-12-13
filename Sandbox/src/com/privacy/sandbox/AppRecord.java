@@ -3,6 +3,7 @@ package com.privacy.sandbox;
 public class AppRecord {
 	private long id;
 	private String name;
+	private String broadcastLabel;
 	
 	public long getId() {
 		return id;
@@ -20,10 +21,19 @@ public class AppRecord {
 		this.name = name;
 	}
 
-	// Will be used by the ArrayAdapter in the ListView
-	@Override
-	public String toString() {
-		return "AppRecord: " + name;
+	
+	public String getBroadcastLabel() {
+		return broadcastLabel;
 	}
+
+	public void setBroadcastLabel(String broadcastLabel) {
+		this.broadcastLabel = broadcastLabel;
+	}
+	
+	// Will be used by the ArrayAdapter in the ListView
+		@Override
+		public String toString() {
+			return "AppRecord: " + name + ", uses broadcast permission: " + broadcastLabel;
+		}
 
 }

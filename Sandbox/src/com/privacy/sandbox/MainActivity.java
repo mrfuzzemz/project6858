@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -23,12 +24,18 @@ public class MainActivity extends Activity {
 	private static contactListHelper cLH;
 	private static AppRecordDataSource recordsource;
 	
-	private Spinner spinnerApps;
-
 	private static String userName = "";
 	private static String phoneIMEI = "";
 	private static String carrierName = "";
 	
+	
+	private Spinner spinnerApps;
+    private final int[] locButtonIDs = {R.id.realLoc, R.id.bogusLoc, R.id.customLoc};		
+    private final int[] imeiButtonIDs = {R.id.realIMEI, R.id.bogusIMEI, R.id.customIMEI};
+	private final int[] profileButtonIDs = {R.id.realProfile, R.id.bogusProfile, R.id.customProfile};
+	private final int[] contactsButtonIDs = {R.id.realContacts, R.id.bogusContacts, R.id.customContacts, R.id.nameContacts};
+	private final int[] carrierButtonIDs = {R.id.realCarrier, R.id.bogusCarrier, R.id.customCarrier};
+
 	//for removing Custom label from custom permissions
 	public static final int CUSTOM_OFFSET = "Custom: ".length(); 
 	
@@ -62,18 +69,19 @@ public class MainActivity extends Activity {
 		recordsource = new AppRecordDataSource(this);
 		recordsource.open();
 		
+		//populate the spinner with the app list
 		List<String> knownApps = recordsource.getAllAppRecords();
 
+		populateSpinnerApps(knownApps);
+		
 		if (! knownApps.isEmpty()){
-			checkCurrentSettings(knownApps.get(0));
+			// fill in radio buttons with settings for first app in DB
+			selectCurrentSettings(knownApps.get(0));
 		} else {
 			Toast.makeText(this, "No apps known!", Toast.LENGTH_LONG).show();
 		}
-				
-		//populate the spinner with the app list
-		populateSpinnerApps(knownApps);
 		
-		// Add a listener for the list to select the appropriate App in the database
+		// Add a listener for the list to select the appropriate app in the database
 		addListenerOnSpinnerItemSelection();
 	}
     
@@ -89,7 +97,14 @@ public class MainActivity extends Activity {
 		super.onStart();
     }
 
-    // Setup Apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+    // Setup apps list, adapted from http://www.mkyong.com/android/android-spinner-drop-down-list-example/
     // add item into spinnerApps
     public void populateSpinnerApps(List<String> applist) {
 	  	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
@@ -100,19 +115,28 @@ public class MainActivity extends Activity {
 	  	spinnerApps.setAdapter(dataAdapter);
     }    
     
+    // add a listener to change the radio button selections when the user selects
+    // a different app
     public void addListenerOnSpinnerItemSelection() {
     	spinnerApps = (Spinner) findViewById(R.id.spinnerApps);
-    	spinnerApps.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+    	spinnerApps.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+            {
+        		String appName = parent.getItemAtPosition(pos).toString();
+        		selectCurrentSettings(appName);
+            }
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				return;
+			}
+        });
       }
     
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	public void checkCurrentSettings(String appName){
+    
+    // selects the appropriate radio buttons for the given app name
+    public void selectCurrentSettings(String appName){    	
 		List<Permission> perms = datasource.getAllPermissions(appName);
 		Iterator<Permission> iter = perms.iterator();
 		
@@ -121,68 +145,44 @@ public class MainActivity extends Activity {
 			String permissionName = p.getPermName();
 			String value = p.getPermValue();
 			
-			RadioGroup rg;
-			RadioButton selected;
+			int selectedIndex;
 			
-			if (permissionName.equals("location")){
-				rg = (RadioGroup) findViewById(R.id.locationRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realLoc);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusLoc);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customLoc);
-					((EditText)findViewById(R.id.locEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else if(permissionName.equals("imei")){
-				rg = (RadioGroup) findViewById(R.id.IMEIRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realIMEI);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusIMEI);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customIMEI);
-					((EditText)findViewById(R.id.IMEIEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else if (permissionName.equals("profile")){
-				rg = (RadioGroup) findViewById(R.id.profileRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realProfile);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusProfile);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customProfile);
-					((EditText)findViewById(R.id.profileEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else if(permissionName.equals("contacts")) {
-				rg = (RadioGroup) findViewById(R.id.contactsRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realContacts);
-				} else if (value.equals("Name Only")) {
-					selected = (RadioButton) findViewById(R.id.nameContacts);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusContacts);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customContacts);
-					((EditText)findViewById(R.id.contactsEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
-			} else { //carrier
-				rg = (RadioGroup) findViewById(R.id.carrierRadioGroup);
-				if (value.equals("Real")) {
-					selected = (RadioButton) findViewById(R.id.realCarrier);
-				} else if (value.equals("Bogus")){
-					selected = (RadioButton) findViewById(R.id.bogusCarrier);
-				} else { //custom
-					selected = (RadioButton) findViewById(R.id.customCarrier);
-					((EditText)findViewById(R.id.carrierEditText)).setText(value.substring(CUSTOM_OFFSET));
-				}
+			if (value.equals("Real")) {
+				selectedIndex = 0;
+				value = "";
+			} else if (value.equals("Bogus")){
+				selectedIndex = 1; 			
+				value = "";
+			} else if (value.contains("Custom")){ 
+				selectedIndex = 2;
+				value = value.substring(CUSTOM_OFFSET);
+			} else { //name only option for Contacts
+				selectedIndex = 3;
+				value = "";
 			}
-			rg.check(selected.getId());
+			
+			
 
+			if (permissionName.equals("location")){
+				((RadioGroup) findViewById(R.id.locationRadioGroup)).check(locButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.locEditText)).setText(value);
+			} else if(permissionName.equals("imei")){
+				((RadioGroup) findViewById(R.id.IMEIRadioGroup)).check(imeiButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.IMEIEditText)).setText(value);
+			} else if (permissionName.equals("profile")){
+				((RadioGroup) findViewById(R.id.profileRadioGroup)).check(profileButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.profileEditText)).setText(value);
+			} else if(permissionName.equals("contacts")) {
+				((RadioGroup) findViewById(R.id.contactsRadioGroup)).check(contactsButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.contactsEditText)).setText(value);
+			} else { //carrier
+				((RadioGroup) findViewById(R.id.carrierRadioGroup)).check(carrierButtonIDs[selectedIndex]);
+				((EditText)findViewById(R.id.carrierEditText)).setText(value);
+			}
 		}
 	}
 	
-	//TODO get appName from the spinner selection
+    // saves the current radio button selections for the current app selection
 	public void saveAllToDB(View view){
 		if (spinnerApps.getCount() == 0){
 			Toast.makeText(this, "No apps! Can't save settings!", Toast.LENGTH_SHORT).show();
@@ -195,9 +195,10 @@ public class MainActivity extends Activity {
 		saveToDB(view, appName, "profile", R.id.profileRadioGroup, R.id.profileEditText);
 		saveToDB(view, appName, "carrier", R.id.carrierRadioGroup, R.id.carrierEditText);
 		saveToDB(view, appName, "contacts", R.id.contactsRadioGroup, R.id.contactsEditText);
-		Toast.makeText(this, datasource.getAllPermissions().toString(), Toast.LENGTH_LONG).show();
+		Toast.makeText(this, "Settings saved.", Toast.LENGTH_SHORT).show();
 	}
 	
+	// Function to save user input permission settings
 	public void saveToDB(View view, String appName, String permName, int rgID, int editTextID) {
 		RadioGroup radioGroup = (RadioGroup) findViewById(rgID);
 		String permissionSetting = ((RadioButton)findViewById(radioGroup.getCheckedRadioButtonId() )).getText().toString();
@@ -207,21 +208,39 @@ public class MainActivity extends Activity {
 			permissionSetting = "Custom: " + mEdit.getText().toString();
 		}
 
-		datasource.createOrUpdatePermission(appName, permName, permissionSetting);
+		datasource.editPermission(appName, permName, permissionSetting);
 	}	
 	
+	// Function to create entries for permissions when Sandbox learns about an app
+	// Default value for all permissions is Bogus
+	public static void saveToDB(String appName, String permName){
+		datasource.createPermissionIfNotExists(appName, permName, "Bogus");
+	}
+	
+	
+	// Saves a record of the app name and sets all permissions to Bogus default
+	public static AppRecord addAppRecord(String appName, String broadcastLabel){
+		AppRecord ap = recordsource.createAppRecordIfNotExists(appName, broadcastLabel);
+				
+		if (ap != null){
+			saveToDB(appName, "location");
+			saveToDB(appName, "imei");
+			saveToDB(appName, "profile");
+			saveToDB(appName, "carrier");
+			saveToDB(appName, "contacts");
+		} 
+		return ap;
+	}
+	
+	public static String getBroadcastLabel(String appName){
+		return recordsource.getBroadcastLabel(appName);
+	}
+	 
 	public static Permission getPermission(String appName, String permName){
 		Permission p = datasource.getPermission(appName, permName);
 		return p;
 	}
 	
-	//TODO: make this update the spinner
-	public static AppRecord addAppRecord(String appName){
-		AppRecord ap = recordsource.createAppRecordIfNotExists(appName);
-				
-		return ap;
-	}
-	    
     // Functions to get the good stuff
     
 	// Get the phone owner's name (be sure to set this up on the phone!!!)

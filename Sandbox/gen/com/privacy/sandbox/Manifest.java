@@ -9,6 +9,6 @@ package com.privacy.sandbox;
 
 public final class Manifest {
     public static final class permission {
-        public static final String SANDBOX_LOCATION="com.privacy.sandbox.SANDBOX_LOCATION";
+        public static final String SANDBOX_MSG="com.privacy.sandbox.SANDBOX_MSG";
     }
 }

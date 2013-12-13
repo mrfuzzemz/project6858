@@ -1,0 +1,13 @@
+data/proguard.cfg.i
+data/res/values/strings.xml.i
+data/src/com/kkinder/sharelocation/Sharelocation.java.i
+data/res/menu/mainmenu.xml.i
+data/res/drawable-ldpi/icon.png.i
+data/src/com/kkinder/sharelocation/Preferences.java.i
+data/res/layout/main.xml.i
+data/default.properties.i
+data/res/layout/about.xml.i
+data/AndroidManifest.xml.i
+data/res/drawable-mdpi/icon.png.i
+data/res/drawable-hdpi/icon.png.i
+data/res/xml/preferences.xml.i

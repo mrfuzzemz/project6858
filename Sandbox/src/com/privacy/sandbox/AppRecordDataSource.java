@@ -15,7 +15,7 @@ public class AppRecordDataSource {
 	private SQLiteDatabase database;
 	private AppRecordOpenHelper dbHelper;
 	private String[] allColumns = { AppRecordOpenHelper.ID,
-			AppRecordOpenHelper.APP_NAME };
+			AppRecordOpenHelper.APP_NAME, AppRecordOpenHelper.BROADCAST_LABEL };
 
 	public AppRecordDataSource(Context context) {
 		dbHelper = new AppRecordOpenHelper(context);
@@ -29,9 +29,9 @@ public class AppRecordDataSource {
 		dbHelper.close();
 	}
 
-	public AppRecord createAppRecordIfNotExists(String appName) {
+	public AppRecord createAppRecordIfNotExists(String appName, String broadcastLabel) {
 		String[] where = {appName};
-		
+
 		Cursor c = database.query(AppRecordOpenHelper.TABLE_NAME,
 				allColumns, AppRecordOpenHelper.APP_NAME + " = ?", where,
 				null, null, null);
@@ -39,18 +39,31 @@ public class AppRecordDataSource {
 		AppRecord ap;
 
 		if (!c.moveToFirst()){
-			ContentValues values = new ContentValues();
-			values.put(AppRecordOpenHelper.APP_NAME, appName);
-			long insertId = database.insert(AppRecordOpenHelper.TABLE_NAME, null,
-					values);
-			Cursor cursor = database.query(AppRecordOpenHelper.TABLE_NAME,
-					allColumns, PermissionsOpenHelper.ID + " = " + insertId, null,
+			// check to make sure permission isn't already in use, if it is
+			// then don't save anything to DB, return null
+			where = new String[] {broadcastLabel};
+			Cursor c2 = database.query(AppRecordOpenHelper.TABLE_NAME,
+					allColumns, AppRecordOpenHelper.BROADCAST_LABEL + " = ?", where,
 					null, null, null);
-			cursor.moveToFirst();
-			ap = cursorToAppRecord(cursor);
-			cursor.close();
+
+			if (c2.moveToFirst()){
+				ap = null;
+			} else{
+				ContentValues values = new ContentValues();
+				values.put(AppRecordOpenHelper.APP_NAME, appName);
+				values.put(AppRecordOpenHelper.BROADCAST_LABEL, broadcastLabel);
+
+				long insertId = database.insert(AppRecordOpenHelper.TABLE_NAME, null,
+						values);
+				Cursor cursor = database.query(AppRecordOpenHelper.TABLE_NAME,
+						allColumns, AppRecordOpenHelper.ID + " = " + insertId, null,
+						null, null, null);
+				cursor.moveToFirst();
+				ap = cursorToAppRecord(cursor);
+				cursor.close();
+			}
 		} else {
-			ap = cursorToAppRecord(c);
+			ap = null;
 		}
 		c.close();
 
@@ -80,10 +93,27 @@ public class AppRecordDataSource {
 		return appRecords;
 	}
 
+	public String getBroadcastLabel(String appName){
+		String[] where = {appName};
+
+		Cursor c = database.query(AppRecordOpenHelper.TABLE_NAME,
+				allColumns, AppRecordOpenHelper.APP_NAME + " = ?", where,
+				null, null, null);
+
+		String broadcastLabel = "";
+		if (c.moveToFirst()){
+			broadcastLabel = cursorToAppRecord(c).getBroadcastLabel();
+		}
+		c.close();
+
+		return broadcastLabel;
+	}
+
 	private AppRecord cursorToAppRecord(Cursor cursor) {
 		AppRecord ap = new AppRecord();
 		ap.setId(cursor.getLong(0));
 		ap.setName(cursor.getString(1));
+		ap.setBroadcastLabel(cursor.getString(2));
 
 		return ap;
 	}

@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".SandboxedMainActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title" />
+
+    <Button
+        android:id="@+id/buttonLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="42dp"
+        android:onClick="requestLocation"
+        android:text="@string/requestLocationButton" />
+ 
+  	<Button
+ 	    android:id="@+id/buttonIMEI"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_below="@+id/buttonLoc"
+ 	    android:layout_centerHorizontal="true"
+ 	    android:layout_marginTop="21dp"
+ 	    android:onClick="requestIMEI"
+ 	    android:text="@string/requestIMEIButton" />
+  	
+  	<Button
+ 	    android:id="@+id/buttonProf"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_below="@+id/buttonIMEI"
+ 	    android:layout_centerHorizontal="true"
+ 	    android:layout_marginTop="21dp"
+ 	    android:onClick="requestProfile"
+ 	    android:text="@string/requestProfileButton" />
+  	
+  	<Button
+ 	    android:id="@+id/buttonCarrier"
+ 	    android:layout_width="wrap_content"
+ 	    android:layout_height="wrap_content"
+ 	    android:layout_below="@+id/buttonProf"
+ 	    android:layout_centerHorizontal="true"
+ 	    android:layout_marginTop="21dp"
+ 	    android:onClick="requestCarrier"
+ 	    android:text="@string/requestCarrierButton" />
+
+  	<Button
+  	    android:id="@+id/buttonContacts"
+  	    android:layout_width="wrap_content"
+  	    android:layout_height="wrap_content"
+  	    android:layout_alignLeft="@+id/buttonLoc"
+  	    android:layout_below="@+id/buttonCarrier"
+  	    android:layout_marginTop="26dp"
+  	    android:onClick="requestContacts"
+  	    android:text="@string/requestContactsButton" />
+    
+</RelativeLayout>
